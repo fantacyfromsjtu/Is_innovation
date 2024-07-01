@@ -5,7 +5,7 @@
 ```
 cd demo
 g++ -o detection.out patternDetection.cpp -lpcap
-sudo ./detection.out pattenfile
+sudo ./detection.out patternfile
 ```
 模拟攻击：
 ```
