@@ -1,5 +1,5 @@
 #include "brute_force.h"
-
+// 暴力匹配算法
 bool bruteForceMatch(const std::string &pattern, const std::string &text)
 {
     size_t m = pattern.size();

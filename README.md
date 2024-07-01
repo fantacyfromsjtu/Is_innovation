@@ -1,7 +1,7 @@
 # Is_innovation
 将demo的C文件改成了C++
 
-运行方法：
+demo运行方法：
 ```
 cd demo
 g++ -o detection.out patternDetection.cpp -lpcap
