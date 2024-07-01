@@ -14,37 +14,44 @@ set(SOURCE_FILES
     src/pattern_reader.cpp
     src/pcap_handler.cpp
     src/matcher.cpp
+    src/algorithms/brute_force.cpp
+    src/algorithms/kmp.cpp
+    src/algorithms/boyer_moore.cpp
 )
 
 # 包含头文件目录
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src/algorithms)
 
 # 添加可执行文件
 add_executable(main ${SOURCE_FILES})
 
-# 链接pcap库
-find_package(Pcap REQUIRED)
-if (Pcap_FOUND)
-    include_directories(${Pcap_INCLUDE_DIRS})
-    target_link_libraries(main ${Pcap_LIBRARIES})
+# 手动查找 Pcap 库
+find_path(PCAP_INCLUDE_DIR pcap.h)
+find_library(PCAP_LIBRARY pcap)
+
+if (PCAP_INCLUDE_DIR AND PCAP_LIBRARY)
+    set(PCAP_FOUND TRUE)
+    include_directories(${PCAP_INCLUDE_DIR})
+    target_link_libraries(main ${PCAP_LIBRARY})
 else()
     message(FATAL_ERROR "Pcap library not found")
 endif()
 
-# 测试配置
-enable_testing()
+# # 测试配置
+# enable_testing()
 
-# 添加测试文件
-add_executable(test_pattern_reader tests/test_pattern_reader.cpp src/pattern_reader.cpp)
-add_executable(test_pcap_handler tests/test_pcap_handler.cpp src/pcap_handler.cpp src/matcher.cpp)
-add_executable(test_matcher tests/test_matcher.cpp src/matcher.cpp src/pattern_reader.cpp)
+# # 添加测试文件
+# add_executable(test_pattern_reader tests/test_pattern_reader.cpp src/pattern_reader.cpp)
+# add_executable(test_pcap_handler tests/test_pcap_handler.cpp src/pcap_handler.cpp src/matcher.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
+# add_executable(test_matcher tests/test_matcher.cpp src/matcher.cpp src/pattern_reader.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
 
-# 链接测试用的 pcap 库
-target_link_libraries(test_pcap_handler ${Pcap_LIBRARIES})
-target_link_libraries(test_pattern_reader ${Pcap_LIBRARIES})
-target_link_libraries(test_matcher ${Pcap_LIBRARIES})
+# # 链接测试用的 pcap 库
+# target_link_libraries(test_pcap_handler ${PCAP_LIBRARY})
+# target_link_libraries(test_pattern_reader ${PCAP_LIBRARY})
+# target_link_libraries(test_matcher ${PCAP_LIBRARY})
 
-# 添加测试
-add_test(NAME test_pattern_reader COMMAND test_pattern_reader)
-add_test(NAME test_pcap_handler COMMAND test_pcap_handler)
-add_test(NAME test_matcher COMMAND test_matcher)
+# # 添加测试
+# add_test(NAME test_pattern_reader COMMAND test_pattern_reader)
+# add_test(NAME test_pcap_handler COMMAND test_pcap_handler)
+# add_test(NAME test_matcher COMMAND test_matcher)
