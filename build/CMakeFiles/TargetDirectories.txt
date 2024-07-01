@@ -1,0 +1,5 @@
+/home/firefly/IDS/build/CMakeFiles/main.dir
+/home/firefly/IDS/build/CMakeFiles/test_algorithms.dir
+/home/firefly/IDS/build/CMakeFiles/test.dir
+/home/firefly/IDS/build/CMakeFiles/edit_cache.dir
+/home/firefly/IDS/build/CMakeFiles/rebuild_cache.dir

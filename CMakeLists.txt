@@ -38,20 +38,26 @@ else()
     message(FATAL_ERROR "Pcap library not found")
 endif()
 
-# # 测试配置
-# enable_testing()
+# 启用测试
+enable_testing()
 
-# # 添加测试文件
+# 添加综合测试文件
+add_executable(test_algorithms tests/test_algorithms.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
+
+# 添加测试
+add_test(NAME test_algorithms COMMAND test_algorithms)
+
+# 注释掉其他测试文件
 # add_executable(test_pattern_reader tests/test_pattern_reader.cpp src/pattern_reader.cpp)
 # add_executable(test_pcap_handler tests/test_pcap_handler.cpp src/pcap_handler.cpp src/matcher.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
 # add_executable(test_matcher tests/test_matcher.cpp src/matcher.cpp src/pattern_reader.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
 
-# # 链接测试用的 pcap 库
+# 链接测试用的 pcap 库
 # target_link_libraries(test_pcap_handler ${PCAP_LIBRARY})
 # target_link_libraries(test_pattern_reader ${PCAP_LIBRARY})
 # target_link_libraries(test_matcher ${PCAP_LIBRARY})
 
-# # 添加测试
+# 添加测试
 # add_test(NAME test_pattern_reader COMMAND test_pattern_reader)
 # add_test(NAME test_pcap_handler COMMAND test_pcap_handler)
 # add_test(NAME test_matcher COMMAND test_matcher)

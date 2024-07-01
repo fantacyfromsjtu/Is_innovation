@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test_algorithms.dir/tests/test_algorithms.cpp.o CMakeFiles/test_algorithms.dir/src/algorithms/brute_force.cpp.o CMakeFiles/test_algorithms.dir/src/algorithms/kmp.cpp.o CMakeFiles/test_algorithms.dir/src/algorithms/boyer_moore.cpp.o -o test_algorithms 

@@ -1,73 +1,73 @@
 #include "kmp.h"
 #include <vector>
-// KMP算法
 
-//  计算部分匹配表
 void computeLPSArray(const std::string &pattern, std::vector<int> &lps)
 {
-    int m = pattern.size();
-    int len = 0;
-    lps[0] = 0;
-    int i = 1; // 从第2个字符开始匹配
-    while (i < m)
+    int length = 0;
+    lps[0] = 0; // lps[0] is always 0
+
+    int i = 1;
+    while (i < pattern.size())
     {
-        if (pattern[i] == pattern[len])
+        if (pattern[i] == pattern[length])
         {
-            // 匹配成功
-            len++;
-            lps[i] = len;
+            length++;
+            lps[i] = length;
             i++;
         }
         else
         {
-            if (len == 0)
+            if (length != 0)
+            {
+                length = lps[length - 1];
+            }
+            else
             {
                 lps[i] = 0;
                 i++;
             }
-            else
-            {
-                lps[i] = lps[len - 1];
-            }
         }
     }
 }
+
 bool kmpMatch(const std::string &pattern, const std::string &text)
 {
-    int m = pattern.size();
-    int n = text.size();
-    if (m == 0)
+    if (pattern.empty())
         return false;
 
-    std::vector<int> lps(m, 0);
-    computeLPSArray(pattern, lps); // 计算lps数组
+    int m = pattern.size();
+    int n = text.size();
+
+    std::vector<int> lps(m);
+    computeLPSArray(pattern, lps);
 
     int i = 0; // index for text[]
     int j = 0; // index for pattern[]
-
     while (i < n)
     {
-        if (j == m)
-        {
-            // 匹配成功
-            return true;
-        }
-        if (text[i] == pattern[j])
+        if (pattern[j] == text[i])
         {
             i++;
             j++;
         }
-        else
+
+        if (j == m)
         {
-            if (j == 0)
-            {
-                i++;
-            }
-            else
+            return true; // Found pattern
+            j = lps[j - 1];
+        }
+        else if (i < n && pattern[j] != text[i])
+        {
+            if (j != 0)
             {
                 j = lps[j - 1];
             }
+            else
+            {
+                i++;
+            }
         }
     }
+
     return false;
 }
