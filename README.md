@@ -19,7 +19,7 @@ cd ~/IDS/build
 rm -rf *
 cmake ..
 make
-sudo ./main ../patterns/patternfile BF   #指定攻击算法为BF（因为其他还没写
+sudo ./main ../patterns/patternfile BF   #指定攻击算法为BF（可以改成其他）
 
 ```
 
