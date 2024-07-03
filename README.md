@@ -30,3 +30,11 @@ sudo ./main ../patterns/patternfile BF   #指定攻击算法为BF（可以改成
 ctest -V
 
 ```
+
+图形化界面使用方法：
+```
+sudo apt-get install libgtk-3-dev
+gcc -o main_window main_window.c `pkg-config --cflags --libs gtk+-3.0`
+./main_window
+
+```
