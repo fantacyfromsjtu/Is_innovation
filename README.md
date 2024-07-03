@@ -30,3 +30,14 @@ sudo ./main ../patterns/patternfile BF   #指定攻击算法为BF（可以改成
 ctest -V
 
 ```
+
+防火墙阻断文件在/src/firewall中，包含refuse（string）、show（） 和 remove（int） 函数，
+它们分别用于阻断来自特定IP地址的通信、展示所有被阻断的IP地址以及移除指定编号的阻断规则。
+
+PS:1.目前输出均为cout输出，但是重要的输出内容（所有阻断规则）构成了vector，可输出到其他地方
+   2.命令需要使用sudo,因此程序需要更改程序所有者并设置setuid位，
+   可用命令：
+   ```
+   sudo chown root:root *文件名*
+   sudo chmod u+s *文件名*
+   ```
