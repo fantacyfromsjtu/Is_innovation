@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/test_algorithms.dir/src/algorithms/aho_corasick.cpp.o"
+  "CMakeFiles/test_algorithms.dir/src/algorithms/aho_corasick.cpp.o.d"
   "CMakeFiles/test_algorithms.dir/src/algorithms/boyer_moore.cpp.o"
   "CMakeFiles/test_algorithms.dir/src/algorithms/boyer_moore.cpp.o.d"
   "CMakeFiles/test_algorithms.dir/src/algorithms/brute_force.cpp.o"

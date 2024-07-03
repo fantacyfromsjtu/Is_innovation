@@ -17,6 +17,7 @@ set(SOURCE_FILES
     src/algorithms/brute_force.cpp
     src/algorithms/kmp.cpp
     src/algorithms/boyer_moore.cpp
+    src/algorithms/aho_corasick.cpp
 )
 
 # 包含头文件目录
@@ -42,7 +43,7 @@ endif()
 enable_testing()
 
 # 添加综合测试文件
-add_executable(test_algorithms tests/test_algorithms.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
+add_executable(test_algorithms tests/test_algorithms.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp src/algorithms/aho_corasick.cpp)
 
 # 添加测试
 add_test(NAME test_algorithms COMMAND test_algorithms)

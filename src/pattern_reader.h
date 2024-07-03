@@ -1,19 +1,10 @@
-/*
-攻击模式读取模块头文件
-*/
-#pragma once
+#ifndef PATTERN_READER_H
+#define PATTERN_READER_H
+
 #include <string>
 #include <vector>
+#include "packet_structures.h" // 引用packet_structures.h以获取AttackPattern定义
 
-class AttackPattern
-{
-public:
-    std::string attackdes;
-    std::string patterncontent;
-    int patternlen;
-    AttackPattern *next;
+std::vector<AttackPattern> readPatterns(const std::string &filename);
 
-    AttackPattern() : patternlen(0), next(nullptr) {}
-};
-
-std::vector<AttackPattern> readPatterns(const std::string &patternfile);
+#endif // PATTERN_READER_H

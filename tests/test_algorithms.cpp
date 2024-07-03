@@ -1,6 +1,7 @@
 #include "algorithms/brute_force.h"
 #include "algorithms/kmp.h"
 #include "algorithms/boyer_moore.h"
+#include "algorithms/aho_corasick.h"
 #include <iostream>
 #include <vector>
 #include <chrono>  // 用于计时
@@ -40,6 +41,27 @@ bool testAlgorithm(const std::string &pattern, const std::string &text, bool (*m
     return result == expected;
 }
 
+// 简单的进度条
+void printProgressBar(size_t current, size_t total)
+{
+    int barWidth = 70;
+    float progress = static_cast<float>(current) / static_cast<float>(total);
+    int pos = static_cast<int>(barWidth * progress);
+
+    std::cout << "[";
+    for (int i = 0; i < barWidth; ++i)
+    {
+        if (i < pos)
+            std::cout << "=";
+        else if (i == pos)
+            std::cout << ">";
+        else
+            std::cout << " ";
+    }
+    std::cout << "] " << int(progress * 100.0) << " %\r";
+    std::cout.flush();
+}
+
 // 批量测试函数
 void runBatchTests(size_t numPatterns, size_t minPatternLength, size_t maxPatternLength, size_t textLength, const std::string &algorithmName, bool (*matchFunc)(const std::string &, const std::string &))
 {
@@ -59,7 +81,13 @@ void runBatchTests(size_t numPatterns, size_t minPatternLength, size_t maxPatter
             correctMatches++;
         }
         totalMatchTime += matchTime;
+
+        // 打印进度条
+        printProgressBar(i + 1, numPatterns);
     }
+
+    // 确保进度条完成
+    std::cout << std::endl;
 
     // 计算准确率
     double accuracy = static_cast<double>(correctMatches) / numPatterns * 100.0;
@@ -68,15 +96,49 @@ void runBatchTests(size_t numPatterns, size_t minPatternLength, size_t maxPatter
     std::cout << "Algorithm: " << algorithmName << " | Total Patterns: " << numPatterns << " | Accuracy: " << accuracy << "% | Total Match Time: " << totalMatchTime << " seconds" << std::endl;
 }
 
+// 测试 Aho-Corasick 算法
+void runAhoCorasickTest(const std::vector<std::string> &patterns, const std::string &text)
+{
+    AhoCorasick ac(patterns);
+
+    // 记录匹配开始时间
+    auto start = std::chrono::high_resolution_clock::now();
+
+    // 进行字符串匹配
+    std::vector<std::pair<int, int>> matches = ac.search(text);
+
+    // 记录匹配结束时间
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+
+    // 输出结果
+    std::cout << "Algorithm: Aho-Corasick | Total Patterns: " << patterns.size() << " | Total Match Time: " << duration.count() << " seconds" << std::endl;
+    for (const auto &match : matches)
+    {
+        std::cout << "Pattern " << patterns[match.second] << " found at position " << match.first - patterns[match.second].size() + 1 << std::endl;
+    }
+}
+
 int main()
 {
     // 设置随机数种子
     srand(time(nullptr));
 
-    size_t numPatterns = 1000;
+    size_t numPatterns = 10000;
     size_t minPatternLength = 10;
-    size_t maxPatternLength = 1000;
-    size_t textLen = 1000000;
+    size_t maxPatternLength = 100;
+    size_t textLen = 100000;
+
+    // 生成随机模式
+    std::vector<std::string> patterns;
+    for (size_t i = 0; i < numPatterns; ++i)
+    {
+        size_t length = minPatternLength + rand() % (maxPatternLength - minPatternLength + 1);
+        patterns.push_back(generateRandomString(length));
+    }
+
+    // 生成随机文本
+    std::string text = generateRandomString(textLen);
 
     // 运行批量测试
     std::cout << "Running Brute Force Batch Tests:" << std::endl;
@@ -87,6 +149,10 @@ int main()
 
     std::cout << "Running Boyer-Moore Batch Tests:" << std::endl;
     runBatchTests(numPatterns, minPatternLength, maxPatternLength, textLen, "Boyer-Moore", boyerMooreMatch);
+
+    // 运行 Aho-Corasick 测试
+    std::cout << "Running Aho-Corasick Tests:" << std::endl;
+    runAhoCorasickTest(patterns, text);
 
     return 0;
 }

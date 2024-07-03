@@ -2,6 +2,8 @@
 #define PACKET_STRUCTURES_H
 
 #include <string>
+#include <vector>
+#include "matcher.h"
 
 // IP 头部结构
 typedef struct
@@ -28,5 +30,20 @@ typedef struct Packetinfo
     std::string packetcontent;
     int contentlen;
 } PACKETINFO;
+
+// 定义攻击模式结构体
+struct AttackPattern
+{
+    std::string attackdes;
+    std::string patterncontent;
+    int patternlen;
+};
+
+// 定义捕获上下文结构体
+struct CaptureContext
+{
+    const std::vector<AttackPattern> *patterns; // 改为指针
+    MatchAlgorithm algorithm;
+};
 
 #endif // PACKET_STRUCTURES_H

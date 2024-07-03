@@ -1,12 +1,11 @@
-/*
-主程序
-*/
 #include "pattern_reader.h"
 #include "pcap_handler.h"
 #include "matcher.h"
 #include <iostream>
 #include <vector>
 #include <string>
+
+int minpattern_len; // 在这里定义
 
 MatchAlgorithm parseAlgorithm(const std::string &algo)
 {
@@ -22,6 +21,10 @@ MatchAlgorithm parseAlgorithm(const std::string &algo)
     {
         return MatchAlgorithm::BoyerMoore;
     }
+    else if (algo == "AC")
+    {
+        return MatchAlgorithm::AhoCorasick;
+    }
     else
     {
         throw std::invalid_argument("Unknown algorithm: " + algo);
@@ -33,7 +36,7 @@ int main(int argc, char *argv[])
     if (argc < 3)
     {
         std::cerr << "Usage: " << argv[0] << " <patternfile> <algorithm>" << std::endl;
-        std::cerr << "Algorithms: BF (Brute Force), KMP (Knuth-Morris-Pratt), BM (Boyer-Moore)" << std::endl;
+        std::cerr << "Algorithms: BF (Brute Force), KMP (Knuth-Morris-Pratt), BM (Boyer-Moore), AC (Aho-Corasick)" << std::endl;
         return 1;
     }
 

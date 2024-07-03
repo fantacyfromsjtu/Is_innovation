@@ -6,14 +6,12 @@
 #include <pcap.h>
 #include <arpa/inet.h>
 
-// 定义全局变量
-int minpattern_len;
 
 // 回调函数，用于处理捕获的数据包
 void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *pkt_data)
 {
     auto context = reinterpret_cast<CaptureContext *>(user);
-    const auto patterns = context->patterns;
+    const std::vector<AttackPattern> &patterns = *context->patterns; // 解引用指针获取模式向量
     const auto algorithm = context->algorithm;
 
     if (header->len < 14)
@@ -42,13 +40,50 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     onepacket.packetcontent = std::string(reinterpret_cast<const char *>(payload), payload_length);
     onepacket.contentlen = payload_length;
 
-    // 遍历攻击模式，匹配特征串
-    for (const auto &pattern : *patterns)
+    switch (algorithm)
     {
-        if (matchPattern(pattern, onepacket.packetcontent, algorithm))
+    case MatchAlgorithm::BruteForce:
+        for (const auto &pattern : patterns)
         {
-            outputAlert(pattern, onepacket);
+            if (bruteForceMatch(pattern.patterncontent.c_str(), onepacket.packetcontent.c_str()))
+            {
+                outputAlert(pattern, onepacket);
+            }
         }
+        break;
+
+    case MatchAlgorithm::KMP:
+        for (const auto &pattern : patterns)
+        {
+            if (kmpMatch(pattern.patterncontent.c_str(), onepacket.packetcontent.c_str()))
+            {
+                outputAlert(pattern, onepacket);
+            }
+        }
+        break;
+
+    case MatchAlgorithm::BoyerMoore:
+        for (const auto &pattern : patterns)
+        {
+            if (boyerMooreMatch(pattern.patterncontent.c_str(), onepacket.packetcontent.c_str()))
+            {
+                outputAlert(pattern, onepacket);
+            }
+        }
+        break;
+
+    case MatchAlgorithm::AhoCorasick:
+        std::vector<std::string> patternContents;
+        for (const auto &pattern : patterns)
+        {
+            patternContents.push_back(pattern.patterncontent);
+        }
+        auto matches = ahoCorasickMatch(patternContents, onepacket.packetcontent);
+        for (const auto &match : matches)
+        {
+            outputAlert(patterns[match.second], onepacket);
+        }
+        break;
     }
 }
 

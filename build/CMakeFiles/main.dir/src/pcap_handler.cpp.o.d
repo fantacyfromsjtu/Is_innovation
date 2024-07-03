@@ -109,7 +109,7 @@ CMakeFiles/main.dir/src/pcap_handler.cpp.o: \
  /usr/include/c++/11/bits/hash_bytes.h \
  /usr/include/c++/11/bits/range_access.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/firefly/IDS/src/pattern_reader.h /usr/include/c++/11/string \
+ /home/firefly/IDS/src/packet_structures.h /usr/include/c++/11/string \
  /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/char_traits.h \
  /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
@@ -155,8 +155,7 @@ CMakeFiles/main.dir/src/pcap_handler.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/firefly/IDS/src/matcher.h \
- /home/firefly/IDS/src/packet_structures.h /usr/include/c++/11/iostream \
+ /home/firefly/IDS/src/matcher.h /usr/include/c++/11/iostream \
  /usr/include/c++/11/ostream /usr/include/c++/11/ios \
  /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
  /usr/include/c++/11/bits/cxxabi_init_exception.h \

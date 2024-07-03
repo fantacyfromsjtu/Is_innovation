@@ -129,9 +129,25 @@ CMakeFiles/test_algorithms.dir/tests/test_algorithms.cpp.o: \
  /usr/include/c++/11/bits/basic_string.tcc \
  /home/firefly/IDS/src/algorithms/kmp.h \
  /home/firefly/IDS/src/algorithms/boyer_moore.h \
- /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
- /usr/include/c++/11/ios /usr/include/c++/11/exception \
- /usr/include/c++/11/bits/exception_ptr.h \
+ /home/firefly/IDS/src/algorithms/aho_corasick.h \
+ /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/unordered_map \
+ /usr/include/c++/11/ext/aligned_buffer.h \
+ /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
+ /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
+ /usr/include/c++/11/array /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/bits/invoke.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/unordered_map.h \
+ /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
+ /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_deque.h \
+ /usr/include/c++/11/bits/deque.tcc /usr/include/c++/11/bits/stl_heap.h \
+ /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/iostream \
+ /usr/include/c++/11/ostream /usr/include/c++/11/ios \
+ /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
  /usr/include/c++/11/bits/cxxabi_init_exception.h \
  /usr/include/c++/11/typeinfo /usr/include/c++/11/bits/nested_exception.h \
  /usr/include/c++/11/bits/ios_base.h \
@@ -150,11 +166,7 @@ CMakeFiles/test_algorithms.dir/tests/test_algorithms.cpp.o: \
  /usr/include/c++/11/bits/locale_facets.tcc \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/vector \
- /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/chrono \
+ /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/chrono \
  /usr/include/c++/11/ratio /usr/include/c++/11/limits \
  /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/cassert /usr/include/assert.h

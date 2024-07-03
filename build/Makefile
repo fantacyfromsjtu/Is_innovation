@@ -152,6 +152,33 @@ test_algorithms/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_algorithms.dir/build.make CMakeFiles/test_algorithms.dir/build
 .PHONY : test_algorithms/fast
 
+src/algorithms/aho_corasick.o: src/algorithms/aho_corasick.cpp.o
+.PHONY : src/algorithms/aho_corasick.o
+
+# target to build an object file
+src/algorithms/aho_corasick.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/algorithms/aho_corasick.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_algorithms.dir/build.make CMakeFiles/test_algorithms.dir/src/algorithms/aho_corasick.cpp.o
+.PHONY : src/algorithms/aho_corasick.cpp.o
+
+src/algorithms/aho_corasick.i: src/algorithms/aho_corasick.cpp.i
+.PHONY : src/algorithms/aho_corasick.i
+
+# target to preprocess a source file
+src/algorithms/aho_corasick.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/algorithms/aho_corasick.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_algorithms.dir/build.make CMakeFiles/test_algorithms.dir/src/algorithms/aho_corasick.cpp.i
+.PHONY : src/algorithms/aho_corasick.cpp.i
+
+src/algorithms/aho_corasick.s: src/algorithms/aho_corasick.cpp.s
+.PHONY : src/algorithms/aho_corasick.s
+
+# target to generate assembly for a file
+src/algorithms/aho_corasick.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/algorithms/aho_corasick.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_algorithms.dir/build.make CMakeFiles/test_algorithms.dir/src/algorithms/aho_corasick.cpp.s
+.PHONY : src/algorithms/aho_corasick.cpp.s
+
 src/algorithms/boyer_moore.o: src/algorithms/boyer_moore.cpp.o
 .PHONY : src/algorithms/boyer_moore.o
 
@@ -364,6 +391,9 @@ help:
 	@echo "... test"
 	@echo "... main"
 	@echo "... test_algorithms"
+	@echo "... src/algorithms/aho_corasick.o"
+	@echo "... src/algorithms/aho_corasick.i"
+	@echo "... src/algorithms/aho_corasick.s"
 	@echo "... src/algorithms/boyer_moore.o"
 	@echo "... src/algorithms/boyer_moore.i"
 	@echo "... src/algorithms/boyer_moore.s"

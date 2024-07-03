@@ -129,7 +129,9 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/firefly/IDS/src/main.cpp \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /home/firefly/IDS/src/pcap_handler.h \
+ /usr/include/c++/11/bits/vector.tcc \
+ /home/firefly/IDS/src/packet_structures.h \
+ /home/firefly/IDS/src/matcher.h /home/firefly/IDS/src/pcap_handler.h \
  /usr/include/pcap.h /usr/include/pcap/pcap.h \
  /usr/include/pcap/funcattrs.h /usr/include/pcap/compiler-tests.h \
  /usr/include/pcap/pcap-inttypes.h /usr/include/inttypes.h \
@@ -156,10 +158,9 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/firefly/IDS/src/main.cpp \
  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
  /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/arpa/inet.h \
  /usr/include/pcap/bpf.h /usr/include/pcap/dlt.h \
- /home/firefly/IDS/src/matcher.h \
- /home/firefly/IDS/src/packet_structures.h /usr/include/c++/11/iostream \
- /usr/include/c++/11/ostream /usr/include/c++/11/ios \
- /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
+ /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
+ /usr/include/c++/11/ios /usr/include/c++/11/exception \
+ /usr/include/c++/11/bits/exception_ptr.h \
  /usr/include/c++/11/bits/cxxabi_init_exception.h \
  /usr/include/c++/11/typeinfo /usr/include/c++/11/bits/nested_exception.h \
  /usr/include/c++/11/bits/ios_base.h \
