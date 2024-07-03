@@ -17,6 +17,9 @@ IDS/
 │       ├── kmp.h                 # KMP算法头文件
 │       ├── boyer_moore.cpp       # Boyer-Moore算法实现
 │       ├── boyer_moore.h         # Boyer-Moore算法头文件
+├── gui/
+│   ├── main_window.c             # 主窗口程序
+│   ├── main_window.glade         # Glade UI文件
 ├── patterns/
 │   └── patternfile               # 攻击模式定义文件
 ├── docs/
