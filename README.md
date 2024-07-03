@@ -36,4 +36,5 @@ ctest -V
 sudo apt-get install libgtk-3-dev
 gcc -o main_window main_window.c `pkg-config --cflags --libs gtk+-3.0`
 ./main_window
+
 ```
