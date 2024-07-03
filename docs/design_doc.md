@@ -52,7 +52,7 @@ IDS/
   - **`kmp.cpp` 和 `kmp.h`**：KMP (Knuth-Morris-Pratt) 算法的实现，用于更高效的字符串匹配。
   - **`boyer_moore.cpp` 和 `boyer_moore.h`**：Boyer-Moore 算法的实现，这是一种效率非常高的字符串搜索算法。
 
-#### `gui/`
+#### `gui/`：图形界面代码目录
 - **`main_window.c`**：主窗口程序，包含GTK+主窗口的创建和初始化代码，负责管理图形界面事件和交互。
 - **`main_window.glade`**：Glade UI文件，定义图形界面的布局和控件，通过Glade工具生成，用于简化GTK+ UI的设计和维护。
 #### `patterns/`
