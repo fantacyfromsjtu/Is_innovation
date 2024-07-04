@@ -3,8 +3,16 @@
 
 #include <string>
 #include <vector>
-#include "packet_structures.h" // 引用packet_structures.h以获取AttackPattern定义
 
+// 攻击模式结构体
+struct AttackPattern
+{
+    std::string attackdes;
+    std::string patterncontent;
+    int patternlen;
+};
+
+// 读取攻击模式文件
 std::vector<AttackPattern> readPatterns(const std::string &filename);
 
 #endif // PATTERN_READER_H

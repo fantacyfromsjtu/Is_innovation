@@ -5,8 +5,10 @@
 #include <vector>
 #include <string>
 
-int minpattern_len; // 在这里定义
+// 定义全局变量
+int minpattern_len;
 
+// 解析算法参数
 MatchAlgorithm parseAlgorithm(const std::string &algo)
 {
     if (algo == "BF")
@@ -21,10 +23,6 @@ MatchAlgorithm parseAlgorithm(const std::string &algo)
     {
         return MatchAlgorithm::BoyerMoore;
     }
-    else if (algo == "AC")
-    {
-        return MatchAlgorithm::AhoCorasick;
-    }
     else
     {
         throw std::invalid_argument("Unknown algorithm: " + algo);
@@ -36,7 +34,7 @@ int main(int argc, char *argv[])
     if (argc < 3)
     {
         std::cerr << "Usage: " << argv[0] << " <patternfile> <algorithm>" << std::endl;
-        std::cerr << "Algorithms: BF (Brute Force), KMP (Knuth-Morris-Pratt), BM (Boyer-Moore), AC (Aho-Corasick)" << std::endl;
+        std::cerr << "Algorithms: BF (Brute Force), KMP (Knuth-Morris-Pratt), BM (Boyer-Moore)" << std::endl;
         return 1;
     }
 

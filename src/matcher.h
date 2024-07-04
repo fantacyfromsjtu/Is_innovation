@@ -1,22 +1,18 @@
 #ifndef MATCHER_H
 #define MATCHER_H
 
-#include <vector>
+#include "pattern_reader.h"
 #include <string>
 
+// 匹配算法枚举
 enum class MatchAlgorithm
 {
     BruteForce,
     KMP,
-    BoyerMoore,
-    AhoCorasick
+    BoyerMoore
 };
 
-extern int minpattern_len;
-
-bool bruteForceMatch(const std::string &pattern, const std::string &text);
-bool kmpMatch(const std::string &pattern, const std::string &text);
-bool boyerMooreMatch(const std::string &pattern, const std::string &text);
-std::vector<std::pair<int, int>> ahoCorasickMatch(const std::vector<std::string> &patterns, const std::string &text);
+// 函数声明
+bool matchPattern(const AttackPattern &pattern, const std::string &text, MatchAlgorithm algorithm);
 
 #endif // MATCHER_H

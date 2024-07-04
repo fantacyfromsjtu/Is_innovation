@@ -1,38 +1,24 @@
-/*
-特征串匹配算法模块
-*/
 #include "matcher.h"
-#include <cstring>
 #include "algorithms/brute_force.h"
 #include "algorithms/kmp.h"
 #include "algorithms/boyer_moore.h"
-#include "algorithms/aho_corasick.h"
+#include <iostream>
 
-
-
-bool bruteForceMatch(const char *pattern, const char *text)
+// 匹配算法调度函数
+bool matchPattern(const AttackPattern &pattern, const std::string &text, MatchAlgorithm algorithm)
 {
-    std::string pat(pattern);
-    std::string txt(text);
-    return bruteForceMatch(pat, txt);
-}
-
-bool kmpMatch(const char *pattern, const char *text)
-{
-    std::string pat(pattern);
-    std::string txt(text);
-    return kmpMatch(pat, txt);
-}
-
-bool boyerMooreMatch(const char *pattern, const char *text)
-{
-    std::string pat(pattern);
-    std::string txt(text);
-    return boyerMooreMatch(pat, txt);
-}
-
-std::vector<std::pair<int, int>> ahoCorasickMatch(const std::vector<std::string> &patterns, const std::string &text)
-{
-    AhoCorasick ac(patterns);
-    return ac.search(text);
+    switch (algorithm)
+    {
+    case MatchAlgorithm::BruteForce:
+        //std::cout << "call BF\n";
+        return bruteForceMatch(pattern.patterncontent, text);
+    case MatchAlgorithm::KMP:
+        //std::cout << "call KMP\n";
+        return kmpMatch(pattern.patterncontent, text);
+    case MatchAlgorithm::BoyerMoore:
+        //std::cout << "call BM\n";
+        return boyerMooreMatch(pattern.patterncontent, text);
+    default:
+        return false;
+    }
 }

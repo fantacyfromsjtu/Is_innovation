@@ -1,12 +1,13 @@
 #include "kmp.h"
 #include <vector>
 
+// KMP 算法实现
 void computeLPSArray(const std::string &pattern, std::vector<int> &lps)
 {
     int length = 0;
-    lps[0] = 0; // lps[0] is always 0
-
     int i = 1;
+    lps[0] = 0;
+
     while (i < pattern.size())
     {
         if (pattern[i] == pattern[length])
@@ -32,17 +33,14 @@ void computeLPSArray(const std::string &pattern, std::vector<int> &lps)
 
 bool kmpMatch(const std::string &pattern, const std::string &text)
 {
-    if (pattern.empty())
-        return false;
-
     int m = pattern.size();
     int n = text.size();
-
     std::vector<int> lps(m);
+
     computeLPSArray(pattern, lps);
 
-    int i = 0; // index for text[]
-    int j = 0; // index for pattern[]
+    int i = 0;
+    int j = 0;
     while (i < n)
     {
         if (pattern[j] == text[i])
@@ -53,21 +51,16 @@ bool kmpMatch(const std::string &pattern, const std::string &text)
 
         if (j == m)
         {
-            return true; // Found pattern
+            return true;
             j = lps[j - 1];
         }
         else if (i < n && pattern[j] != text[i])
         {
             if (j != 0)
-            {
                 j = lps[j - 1];
-            }
             else
-            {
                 i++;
-            }
         }
     }
-
     return false;
 }

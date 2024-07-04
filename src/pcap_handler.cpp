@@ -2,16 +2,17 @@
 #include "matcher.h"
 #include "packet_structures.h"
 #include <iostream>
-#include <fstream>
 #include <cstring>
 #include <pcap.h>
 #include <arpa/inet.h>
-
+#include <fstream>
+// 声明全局变量
+extern int minpattern_len;
 // 回调函数，用于处理捕获的数据包
 void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *pkt_data)
 {
     auto context = reinterpret_cast<CaptureContext *>(user);
-    const std::vector<AttackPattern> &patterns = *(context->patterns); // 解引用指针获取模式向量
+    const std::vector<AttackPattern> &patterns = context->patterns; // 解引用指针获取模式向量
     const auto algorithm = context->algorithm;
 
     if (header->len < 14)
@@ -58,58 +59,14 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     bool attack_detected = false;
 
     // 检查匹配模式
-    switch (algorithm)
+    for (const auto &pattern : patterns)
     {
-    case MatchAlgorithm::BruteForce:
-        for (const auto &pattern : patterns)
-        {
-            if (bruteForceMatch(pattern.patterncontent, onepacket.packetcontent))
-            {
-                attack_detected = true;
-                outputAlert(pattern, onepacket);
-                logfile << "Attack detected: " << pattern.attackdes << "\n";
-            }
-        }
-        break;
-
-    case MatchAlgorithm::KMP:
-        for (const auto &pattern : patterns)
-        {
-            if (kmpMatch(pattern.patterncontent, onepacket.packetcontent))
-            {
-                attack_detected = true;
-                outputAlert(pattern, onepacket);
-                logfile << "Attack detected: " << pattern.attackdes << "\n";
-            }
-        }
-        break;
-
-    case MatchAlgorithm::BoyerMoore:
-        for (const auto &pattern : patterns)
-        {
-            if (boyerMooreMatch(pattern.patterncontent, onepacket.packetcontent))
-            {
-                attack_detected = true;
-                outputAlert(pattern, onepacket);
-                logfile << "Attack detected: " << pattern.attackdes << "\n";
-            }
-        }
-        break;
-
-    case MatchAlgorithm::AhoCorasick:
-        std::vector<std::string> patternContents;
-        for (const auto &pattern : patterns)
-        {
-            patternContents.push_back(pattern.patterncontent);
-        }
-        auto matches = ahoCorasickMatch(patternContents, onepacket.packetcontent);
-        for (const auto &match : matches)
+        if (matchPattern(pattern, onepacket.packetcontent, algorithm))
         {
             attack_detected = true;
-            outputAlert(patterns[match.second], onepacket);
-            logfile << "Attack detected: " << patterns[match.second].attackdes << "\n";
+            outputAlert(pattern, onepacket);
+            logfile << "Attack detected: " << pattern.attackdes << "\n";
         }
-        break;
     }
 
     if (!attack_detected)
@@ -173,12 +130,13 @@ void startPacketCapture(const std::vector<AttackPattern> &patterns, MatchAlgorit
     }
 
     std::cout << "Starting attack pattern detection..." << std::endl;
-    CaptureContext context = {&patterns, algorithm};
-    pcap_loop(handle, 0, pcapCallback, reinterpret_cast<u_char *>(&context));
+    CaptureContext context = {patterns, algorithm};
+    pcap_loop(handle, -1, pcapCallback, reinterpret_cast<u_char *>(&context));
 
     pcap_freealldevs(alldevs);
 }
 
+// 输出警告信息
 // 输出警告信息
 void outputAlert(const AttackPattern &pattern, const PACKETINFO &packet)
 {
@@ -186,4 +144,25 @@ void outputAlert(const AttackPattern &pattern, const PACKETINFO &packet)
     std::cout << "Attack type: " << pattern.attackdes << " ";
     printf("%d.%d.%d.%d ==> ", packet.src_ip[0], packet.src_ip[1], packet.src_ip[2], packet.src_ip[3]);
     printf("%d.%d.%d.%d\n", packet.dest_ip[0], packet.dest_ip[1], packet.dest_ip[2], packet.dest_ip[3]);
+
+    // 记录到日志文件
+    std::ofstream logfile("packet_log.txt", std::ios::app);
+    if (logfile.is_open())
+    {
+        logfile << "Attack pattern detected:\n";
+        logfile << "Attack type: " << pattern.attackdes << " ";
+        logfile << static_cast<int>(packet.src_ip[0]) << "."
+                << static_cast<int>(packet.src_ip[1]) << "."
+                << static_cast<int>(packet.src_ip[2]) << "."
+                << static_cast<int>(packet.src_ip[3]) << " ==> "
+                << static_cast<int>(packet.dest_ip[0]) << "."
+                << static_cast<int>(packet.dest_ip[1]) << "."
+                << static_cast<int>(packet.dest_ip[2]) << "."
+                << static_cast<int>(packet.dest_ip[3]) << "\n";
+        logfile.close(); // 确保文件流被正确关闭
+    }
+    else
+    {
+        std::cerr << "Failed to open packet_log.txt for writing" << std::endl;
+    }
 }

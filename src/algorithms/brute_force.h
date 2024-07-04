@@ -3,6 +3,7 @@
 
 #include <string>
 
+// 暴力匹配算法
 bool bruteForceMatch(const std::string &pattern, const std::string &text);
 
 #endif // BRUTE_FORCE_H
