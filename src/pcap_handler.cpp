@@ -2,16 +2,16 @@
 #include "matcher.h"
 #include "packet_structures.h"
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <pcap.h>
 #include <arpa/inet.h>
-
 
 // 回调函数，用于处理捕获的数据包
 void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *pkt_data)
 {
     auto context = reinterpret_cast<CaptureContext *>(user);
-    const std::vector<AttackPattern> &patterns = *context->patterns; // 解引用指针获取模式向量
+    const std::vector<AttackPattern> &patterns = *(context->patterns); // 解引用指针获取模式向量
     const auto algorithm = context->algorithm;
 
     if (header->len < 14)
@@ -40,14 +40,34 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     onepacket.packetcontent = std::string(reinterpret_cast<const char *>(payload), payload_length);
     onepacket.contentlen = payload_length;
 
+    // 打开日志文件追加模式
+    std::ofstream logfile("packet_log.txt", std::ios::app);
+
+    // 写入基本信息到日志
+    logfile << "Packet from "
+            << static_cast<int>(onepacket.src_ip[0]) << "."
+            << static_cast<int>(onepacket.src_ip[1]) << "."
+            << static_cast<int>(onepacket.src_ip[2]) << "."
+            << static_cast<int>(onepacket.src_ip[3]) << " to "
+            << static_cast<int>(onepacket.dest_ip[0]) << "."
+            << static_cast<int>(onepacket.dest_ip[1]) << "."
+            << static_cast<int>(onepacket.dest_ip[2]) << "."
+            << static_cast<int>(onepacket.dest_ip[3]) << "\n";
+
+    // 标记是否检测到攻击
+    bool attack_detected = false;
+
+    // 检查匹配模式
     switch (algorithm)
     {
     case MatchAlgorithm::BruteForce:
         for (const auto &pattern : patterns)
         {
-            if (bruteForceMatch(pattern.patterncontent.c_str(), onepacket.packetcontent.c_str()))
+            if (bruteForceMatch(pattern.patterncontent, onepacket.packetcontent))
             {
+                attack_detected = true;
                 outputAlert(pattern, onepacket);
+                logfile << "Attack detected: " << pattern.attackdes << "\n";
             }
         }
         break;
@@ -55,9 +75,11 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     case MatchAlgorithm::KMP:
         for (const auto &pattern : patterns)
         {
-            if (kmpMatch(pattern.patterncontent.c_str(), onepacket.packetcontent.c_str()))
+            if (kmpMatch(pattern.patterncontent, onepacket.packetcontent))
             {
+                attack_detected = true;
                 outputAlert(pattern, onepacket);
+                logfile << "Attack detected: " << pattern.attackdes << "\n";
             }
         }
         break;
@@ -65,9 +87,11 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     case MatchAlgorithm::BoyerMoore:
         for (const auto &pattern : patterns)
         {
-            if (boyerMooreMatch(pattern.patterncontent.c_str(), onepacket.packetcontent.c_str()))
+            if (boyerMooreMatch(pattern.patterncontent, onepacket.packetcontent))
             {
+                attack_detected = true;
                 outputAlert(pattern, onepacket);
+                logfile << "Attack detected: " << pattern.attackdes << "\n";
             }
         }
         break;
@@ -81,10 +105,19 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
         auto matches = ahoCorasickMatch(patternContents, onepacket.packetcontent);
         for (const auto &match : matches)
         {
+            attack_detected = true;
             outputAlert(patterns[match.second], onepacket);
+            logfile << "Attack detected: " << patterns[match.second].attackdes << "\n";
         }
         break;
     }
+
+    if (!attack_detected)
+    {
+        logfile << "No attack detected.\n";
+    }
+
+    logfile.close();
 }
 
 // 启动数据包捕获
