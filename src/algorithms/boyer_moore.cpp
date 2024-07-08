@@ -1,5 +1,6 @@
 #include "boyer_moore.h"
 #include <vector>
+#include <iostream>
 
 // Boyer-Moore 算法实现
 void preprocessBadChar(const std::string &pattern, std::vector<int> &badChar)
@@ -16,7 +17,8 @@ bool boyerMooreMatch(const std::string &pattern, const std::string &text)
     int m = pattern.size();
     int n = text.size();
     std::vector<int> badChar(256);
-
+    std::cout << "pattern: " << pattern << std::endl;
+    std::cout << "text: " << text << std::endl;
     preprocessBadChar(pattern, badChar);
 
     int s = 0;
