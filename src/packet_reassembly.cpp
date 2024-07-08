@@ -1,6 +1,7 @@
 #include "packet_reassembly.h"
 #include <cstring>
 #include <array>
+#include <iostream>
 
 void PacketReassembler::addPacket(const PACKETINFO &packet)
 {
@@ -11,6 +12,8 @@ void PacketReassembler::addPacket(const PACKETINFO &packet)
 
     auto key = std::make_pair(src_ip, dest_ip);
     packetFragments[key].push_back(packet.packetcontent);
+
+    //std::cout << "Received packet fragment: " << packet.packetcontent << std::endl;
 }
 
 std::string PacketReassembler::getReassembledData(const u_char src_ip[4], const u_char dest_ip[4])
@@ -32,5 +35,6 @@ std::string PacketReassembler::getReassembledData(const u_char src_ip[4], const 
         packetFragments.erase(key);
     }
 
+    //std::cout << "Reassembled packet: " << reassembledData << std::endl;
     return reassembledData;
 }

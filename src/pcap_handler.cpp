@@ -1,22 +1,18 @@
 #include "pcap_handler.h"
-#include "packet_reassembly.h"
 #include "matcher.h"
 #include <iostream>
 #include <cstring>
 #include <pcap.h>
 #include <arpa/inet.h>
 
-// 全局变量：数据包重组器实例
-PacketReassembler reassembler;
-
-// 声明全局变量
+// 使用 extern 声明全局变量
 extern int minpattern_len;
 
-// 回调函数，用于处理捕获的数据包
+// pcap回调函数，用于处理捕获的数据包
 void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *pkt_data)
 {
     auto context = reinterpret_cast<CaptureContext *>(user);
-    const auto &patterns = context->patterns;
+    const std::vector<AttackPattern> &patterns = *context->patterns; // 解引用指针获取模式向量
     const auto algorithm = context->algorithm;
 
     if (header->len < 14)
@@ -34,9 +30,10 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     const u_char *payload = tcp_header + tcp_header_length;
     int payload_length = ntohs(ip_header->total_len) - (ip_header_length + tcp_header_length);
 
-    // 检查数据包内容是否小于最小模式长度
-    if (payload_length < minpattern_len)
+    if (payload_length < 0 || payload_length > 1500) // 合理性检查
+    {
         return;
+    }
 
     // 构建数据包信息
     PACKETINFO onepacket;
@@ -45,36 +42,16 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     onepacket.packetcontent = std::string(reinterpret_cast<const char *>(payload), payload_length);
     onepacket.contentlen = payload_length;
 
+    // 打印接收到的数据包片段
+    std::cout << "Received packet fragment: " << onepacket.packetcontent << std::endl;
 
-
-    // 1. 先检测单个数据包
+    // 只检测单个报文
     for (const auto &pattern : patterns)
     {
         if (matchPattern(pattern, onepacket.packetcontent, algorithm))
         {
+            std::cout << "Match found in single packet: " << onepacket.packetcontent << std::endl;
             outputAlert(pattern, onepacket);
-        }
-    }
-
-    // 2. 将数据包片段添加到重组器
-    reassembler.addPacket(onepacket);
-
-    // 3. 尝试从重组器中获取重组后的完整数据包
-    std::string reassembledData = reassembler.getReassembledData(onepacket.src_ip, onepacket.dest_ip);
-    if (!reassembledData.empty())
-    {
-        // 更新数据包信息为重组后的完整数据包
-        onepacket.packetcontent = reassembledData;
-        onepacket.contentlen = reassembledData.size();
-
-        // 4. 检测重组后的数据包
-        for (const auto &pattern : patterns)
-        {
-            if (matchPattern(pattern, onepacket.packetcontent, algorithm))
-            {
-                std::cout << "catch!\n";
-                outputAlert(pattern, onepacket);
-            }
         }
     }
 }
@@ -110,35 +87,35 @@ void startPacketCapture(const std::vector<AttackPattern> &patterns, MatchAlgorit
     }
 
     // 打开网络设备进行捕获
-    handle = pcap_open_live(device, 65535, 1, 1000, errbuf);
+    handle = pcap_open_live(device, 1500, 1, 1000, errbuf); // 设置捕获大小为1500字节
     if (handle == nullptr)
     {
         std::cerr << "Couldn't open device " << device << ": " << errbuf << std::endl;
         return;
     }
 
-    // 设置过滤器，只捕获 IP 和 TCP 数据包
+    // 设置过滤器，只捕获 80 端口的 IP 和 TCP 数据包
     struct bpf_program filter;
-    if (pcap_compile(handle, &filter, "ip and tcp", 0, ipmask) == -1)
+    if (pcap_compile(handle, &filter, "ip and tcp and port 80", 0, ipmask) == -1)
     {
-        std::cerr << "Couldn't parse filter: ip and tcp" << std::endl;
+        std::cerr << "Couldn't parse filter: ip and tcp and port 80" << std::endl;
         return;
     }
 
     if (pcap_setfilter(handle, &filter) == -1)
     {
-        std::cerr << "Couldn't install filter: ip and tcp" << std::endl;
+        std::cerr << "Couldn't install filter: ip and tcp and port 80" << std::endl;
         return;
     }
 
     std::cout << "Starting attack pattern detection..." << std::endl;
-    CaptureContext context = {patterns, algorithm};
+    CaptureContext context = {&patterns, algorithm};
     pcap_loop(handle, 0, pcapCallback, reinterpret_cast<u_char *>(&context));
 
     pcap_freealldevs(alldevs);
 }
 
-// 输出警告信息
+// 输出警报信息
 void outputAlert(const AttackPattern &pattern, const PACKETINFO &packet)
 {
     std::cout << "Attack pattern detected:" << std::endl;
