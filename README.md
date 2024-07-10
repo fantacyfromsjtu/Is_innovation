@@ -41,3 +41,6 @@ PS:1.目前输出均为cout输出，但是重要的输出内容（所有阻断�
    sudo chown root:root *文件名*
    sudo chmod u+s *文件名*
    ```
+
+抗逃避检测，在anti_escape_detect.cpp中，提供函数bool detect(string text,string pattern,int max_distance)，用于检测text中是否有pattern特征串，max_distance为基于Levenshtein距离算法的最大允许编辑距离
+（测试可用：pattern=simp1e，text=...simple...,max_distance>=1)
