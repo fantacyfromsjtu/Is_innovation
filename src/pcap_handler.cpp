@@ -15,6 +15,9 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     const std::vector<AttackPattern> &patterns = *context->patterns; // 解引用指针获取模式向量
     const auto algorithm = context->algorithm;
 
+    PACKETINFO onepacket;
+    memset(&onepacket, 0, sizeof(PACKETINFO));
+
     if (header->len < 14)
         return;
 
@@ -23,34 +26,28 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     if (ip_header->proto != 6)
         return; // 只处理 TCP 数据包
 
-    // 解析 TCP 头部并获取数据包内容
-    int ip_header_length = ip_header->header_len * 4;
-    const u_char *tcp_header = pkt_data + 14 + ip_header_length;
-    int tcp_header_length = ((*tcp_header) >> 4) * 4;
-    const u_char *payload = tcp_header + tcp_header_length;
-    int payload_length = ntohs(ip_header->total_len) - (ip_header_length + tcp_header_length);
-
-    if (payload_length < 0 || payload_length > 1500) // 合理性检查
-    {
+    onepacket.contentlen = ntohs(ip_header->total_len) - 20 - 20;
+    if (onepacket.contentlen < minpattern_len)
         return;
-    }
+    onepacket.packetcontent = std::string((char *)(pkt_data + 14 + 20 + 20), onepacket.contentlen);
 
-    // 构建数据包信息
-    PACKETINFO onepacket;
+    int ip_header_length = ip_header->header_len * 4;
+    if (header->len < 14 + ip_header_length)
+        return;
+
     memcpy(onepacket.src_ip, ip_header->sourceIP, 4);
     memcpy(onepacket.dest_ip, ip_header->destIP, 4);
-    onepacket.packetcontent = std::string(reinterpret_cast<const char *>(payload), payload_length);
-    onepacket.contentlen = payload_length;
+
 
     // 打印接收到的数据包片段
-    std::cout << "Received packet fragment: " << onepacket.packetcontent << std::endl;
+    //std::cout << "Received packet fragment: " << onepacket.packetcontent << std::endl;
 
     // 只检测单个报文
     for (const auto &pattern : patterns)
     {
         if (matchPattern(pattern, onepacket.packetcontent, algorithm))
         {
-            std::cout << "Match found in single packet: " << onepacket.packetcontent << std::endl;
+            //std::cout << "Match found in single packet: " << onepacket.packetcontent << std::endl;
             outputAlert(pattern, onepacket);
         }
     }

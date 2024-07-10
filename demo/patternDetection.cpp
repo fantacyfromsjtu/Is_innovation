@@ -110,6 +110,8 @@ int readpattern(const string &patternfile)
 
 bool matchpattern(AttackPattern *pOnepattern, PACKETINFO *pOnepacket)
 {
+    //std::cout << "pattern: " << pOnepattern->patterncontent << std::endl;
+    //std::cout << "text:" << pOnepacket->packetcontent << endl;
     int leftlen = pOnepacket->contentlen;
     const char *leftcontent = pOnepacket->packetcontent.c_str();
     while (leftlen >= pOnepattern->patternlen)
@@ -149,7 +151,7 @@ void pcap_callback(u_char *user, const struct pcap_pkthdr *header, const u_char 
         onepacket.packetcontent = string((char *)(pkt_data + 14 + 20 + 20), onepacket.contentlen);
         memcpy(onepacket.src_ip, ip_header->sourceIP, 4);
         memcpy(onepacket.dest_ip, ip_header->destIP, 4);
-
+        //std::cout << "Received: " << onepacket.packetcontent << std::endl;
         AttackPattern *pOnepattern = pPatternHeader;
         while (pOnepattern != nullptr)
         {
