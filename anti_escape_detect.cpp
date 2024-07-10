@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
-// ¼ÆËãÁ½¸ö×Ö·û´®Ö®¼äµÄLevenshtein¾àÀë
+// è®¡ç®—ä¸¤ä¸ªå­—ç¬¦ä¸²ä¹‹é—´çš„Levenshteinè·ç¦»
 int levenshtein_distance(const std::string& s1, const std::string& s2) {
     const size_t len1 = s1.size(), len2 = s2.size();
     std::vector<std::vector<unsigned int>> d(len1 + 1, std::vector<unsigned int>(len2 + 1));
@@ -14,9 +14,9 @@ int levenshtein_distance(const std::string& s1, const std::string& s2) {
     for (size_t i = 1; i <= len1; ++i) {
         for (size_t j = 1; j <= len2; ++j) {
             d[i][j] = std::min({
-                d[i - 1][j] + 1,      // É¾³ı
-                d[i][j - 1] + 1,      // ²åÈë
-                d[i - 1][j - 1] + (s1[i - 1] == s2[j - 1] ? 0 : 1) // Ìæ»»
+                d[i - 1][j] + 1,      // åˆ é™¤
+                d[i][j - 1] + 1,      // æ’å…¥
+                d[i - 1][j - 1] + (s1[i - 1] == s2[j - 1] ? 0 : 1) // æ›¿æ¢
                 });
         }
     }
@@ -24,7 +24,7 @@ int levenshtein_distance(const std::string& s1, const std::string& s2) {
     return d[len1][len2];
 }
 
-// ±©Á¦Æ¥ÅäËã·¨
+// æš´åŠ›åŒ¹é…ç®—æ³•
 std::vector<int> brute_force_search(const std::string& text, const std::string& pattern) {
     std::vector<int> matches;
     int n = text.length();
@@ -43,7 +43,7 @@ std::vector<int> brute_force_search(const std::string& text, const std::string& 
     return matches;
 }
 
-// Levenshtein¾àÀëËã·¨º¯ÊıÔÚÕâÀï¼ÙÉèÒÑÊµÏÖ
+// Levenshteinè·ç¦»ç®—æ³•å‡½æ•°åœ¨è¿™é‡Œå‡è®¾å·²å®ç°
 // levenshtein_distance
 
 std::vector<int> approximate_search(const std::string& text, const std::string& pattern, int max_distance) {
@@ -62,17 +62,15 @@ std::vector<int> approximate_search(const std::string& text, const std::string& 
     return approximate_matches;
 }
 
-bool detect() {
-    std::string text = "This is a simple example to demonstrate the combined algorithm for pattern matching.";
-    std::string pattern = "simp1e"; // deliberately misspelled
-    int max_distance = 2; // Maximum Levenshtein distance for approximate matches
+bool detect(string text,string pattern,int max_distance) {
 
     std::vector<int> matches = approximate_search(text, pattern, max_distance);
     
     if (!matches.empty())
     {
-        std::cout << "Find ¡°" << pattern << "¡± in text: ¡°" << text <<"¡±"<< std::endl;
+        std::cout << "Find â€œ" << pattern << "â€ in text: â€œ" << text <<"â€"<< std::endl;
         return 1;
     }
     return 0;
 }
+
