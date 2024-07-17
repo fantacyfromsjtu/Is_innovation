@@ -8,6 +8,7 @@ IDS/
 │   ├── pattern_reader.h
 │   ├── pcap_handler.cpp
 │   ├── pcap_handler.h
+|   |—— packet_structures.h
 │   ├── matcher.cpp
 │   ├── matcher.h
 │   ├── algorithms/
