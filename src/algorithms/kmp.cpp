@@ -51,8 +51,7 @@ bool kmpMatch(const std::string &pattern, const std::string &text)
 
         if (j == m)
         {
-            return true;
-            j = lps[j - 1];
+            return true; // 匹配成功
         }
         else if (i < n && pattern[j] != text[i])
         {
@@ -62,5 +61,5 @@ bool kmpMatch(const std::string &pattern, const std::string &text)
                 i++;
         }
     }
-    return false;
+    return false; // 未匹配成功
 }
