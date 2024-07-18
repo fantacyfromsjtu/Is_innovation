@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS patterns (
 
 # 定义攻击类型和特征
 attack_patterns = {
-    "Command Injection": [
+    "CommandInjection": [
         "/bin/cat /etc/passwd",
         "/bin/chmod 777 /etc/passwd",
         "/bin/chown *:* /etc/passwd",
@@ -94,7 +94,7 @@ attack_patterns = {
         "/bin/chmod 644 /var/log/messages"
     ],
 
-    "SQL Injection": [
+    "SQLInjection": [
         "' OR '1'='1",
         "1' UNION SELECT null, null FROM users",
         "1' UNION SELECT * FROM (SELECT * FROM users) a",
@@ -242,7 +242,7 @@ attack_patterns = {
         "<div style=\"font-family:\\0\">This input field has a XSS: <input></div>"
     ],
 
-   "File Inclusion": [
+   "FileInclusion": [
         "../../../../etc/passwd",
         "/etc/shadow",
         "/etc/hosts",
@@ -309,7 +309,7 @@ attack_patterns = {
         "http://attacker.com/test.php"
     ], 
 
-    "LDAP Injection": [
+    "LDAPInjection": [
         "(&(objectClass=*)(|(uid=*)))",
         "(|(uid=*)))",
         "(|(!(uid=*)))",
@@ -382,7 +382,7 @@ attack_patterns = {
         "(&(co=*))(|(uid=*)))"
     ],
     
-    "PHP Code Injection": [
+    "PHPCodeInjection": [
         "?php=system($_GET['cmd']);?>",
         "<?php eval($_GET['cmd']); ?>",
         "<?php system($_GET['cmd']); ?>",
@@ -460,3 +460,10 @@ conn.commit()
 conn.close()
 
 print("New pattern database created and populated successfully.")
+
+with open('patternfile', 'w') as f:
+    
+    for attack_type, examples in attack_patterns.items():
+        for example in examples:
+
+            f.write(f"{attack_type}#{attack_type}?{example}\n")
