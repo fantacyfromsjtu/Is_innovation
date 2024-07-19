@@ -56,7 +56,8 @@ sudo ./main ../patterns/patternfile BM   #指定攻击算法为BM（可以改成
 并且添加了这三种算法的测试，在test文件夹中
 测试运行方法：
 ```
-ctest -V
+./test_algorithms   //算法性能测试
+./test_pattern_reader //特征读取模块测试
 
 ```
 

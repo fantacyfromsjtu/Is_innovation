@@ -24,3 +24,15 @@ add_executable(main ${SOURCES})
 
 # 链接 libpcap 库
 target_link_libraries(main pcap)
+
+# 启用测试
+enable_testing()
+
+# 添加综合测试文件
+add_executable(test_algorithms tests/test_algorithms.cpp src/algorithms/brute_force.cpp src/algorithms/kmp.cpp src/algorithms/boyer_moore.cpp)
+add_executable(test_pattern_reader tests/test_pattern_reader.cpp src/pattern_reader.cpp)
+
+# 添加测试
+add_test(NAME test_algorithms COMMAND test_algorithms)
+add_test(NAME test_pattern_reader COMMAND test_pattern_reader)
+
