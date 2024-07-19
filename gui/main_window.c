@@ -4,6 +4,8 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 
+GtkWidget *text_view;
+
 // 显示消息对话框
 void show_dialog(GtkWindow *parent_window, const char *message) {
     GtkWidget *dialog;
@@ -16,12 +18,38 @@ void show_dialog(GtkWindow *parent_window, const char *message) {
     gtk_widget_destroy(dialog);
 }
 
+// 更新TextView内容
+void update_text_view(const char *message) {
+    GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_view));
+    GtkTextIter iter;
+    gtk_text_buffer_get_end_iter(buffer, &iter);
+    gtk_text_buffer_insert(buffer, &iter, message, -1);
+}
+
 // 检测命令执行函数
 gpointer run_detection_command(gpointer data) {
     GtkWindow *parent_window = GTK_WINDOW(data);
-    
-    // 执行入侵检测命令
-    int ret = system("sudo ../build/main ../patterns/patternfile BM");
+    FILE *fp;
+    char path[1035];
+
+    // 执行入侵检测命令并读取输出
+    fp = popen("sudo ../build/main ../patterns/patternfile BM", "r");
+    if (fp == NULL) {
+        g_idle_add((GSourceFunc)show_dialog, g_strdup("检测命令执行失败！"));
+        return NULL;
+    }
+
+    // 读取命令输出并更新TextView
+    while (fgets(path, sizeof(path)-1, fp) != NULL) {
+        g_idle_add_full(G_PRIORITY_HIGH_IDLE, (GSourceFunc)update_text_view, g_strdup(path), g_free);
+    }
+
+    // 确保所有输出被正确处理
+    if (!feof(fp)) {
+        g_idle_add((GSourceFunc)show_dialog, g_strdup("检测命令执行读取失败！"));
+    }
+
+    int ret = pclose(fp);
     if (ret == -1) {
         g_idle_add((GSourceFunc)show_dialog, g_strdup("检测命令执行失败！"));
     } else {
@@ -65,6 +93,10 @@ void on_add_feature_button_clicked(GtkButton *button, gpointer user_data) {
 void on_detect_button_clicked(GtkButton *button, gpointer user_data) {
     GtkWidget *parent_window = gtk_widget_get_toplevel(GTK_WIDGET(button));
     
+    // 清空TextView内容
+    GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_view));
+    gtk_text_buffer_set_text(buffer, "", -1);
+    
     // 创建新线程执行检测命令
     GThread *thread = g_thread_new("detection_thread", run_detection_command, parent_window);
     g_thread_unref(thread);
@@ -84,6 +116,7 @@ void activate(GtkApplication *app, gpointer user_data) {
     entry = GTK_WIDGET(gtk_builder_get_object(builder, "feature_entry"));
     add_feature_button = GTK_WIDGET(gtk_builder_get_object(builder, "add_feature_button"));
     detect_button = GTK_WIDGET(gtk_builder_get_object(builder, "detect_button"));
+    text_view = GTK_WIDGET(gtk_builder_get_object(builder, "output_textview"));
 
     // 连接按钮点击事件至回调函数
     g_signal_connect(add_feature_button, "clicked", G_CALLBACK(on_add_feature_button_clicked), entry);
@@ -105,4 +138,3 @@ int main(int argc, char **argv) {
 
     return status;
 }
-
