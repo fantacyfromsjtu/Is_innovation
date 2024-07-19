@@ -6,7 +6,15 @@
 #include <arpa/inet.h>
 
 // 使用 extern 声明全局变量
-extern int minpattern_len;
+int minpattern_len;
+// 全局变量来存储回调函数
+static PacketCallback currentCallback =  nullptr;
+
+// 函数设置一个回调
+void setPacketCallback(const PacketCallback& callback) {
+    currentCallback = callback;
+}
+
 
 // pcap回调函数，用于处理捕获的数据包
 void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *pkt_data)
@@ -38,18 +46,22 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     memcpy(onepacket.src_ip, ip_header->sourceIP, 4);
     memcpy(onepacket.dest_ip, ip_header->destIP, 4);
 
-
-    // 打印接收到的数据包片段
-    //std::cout << "Received packet fragment: " << onepacket.packetcontent << std::endl;
+    std::cout << "Received packet: " << onepacket.packetcontent << std::endl;
 
     // 只检测单个报文
     for (const auto &pattern : patterns)
     {
         if (matchPattern(pattern, onepacket.packetcontent, algorithm))
         {
-            //std::cout << "Match found in single packet: " << onepacket.packetcontent << std::endl;
             outputAlert(pattern, onepacket);
         }
+    }
+
+    if (currentCallback)
+    {
+        PACKETINFO packet;
+        // 假设packet被正确填充
+        currentCallback(packet);
     }
 }
 
@@ -74,6 +86,7 @@ void startPacketCapture(const std::vector<AttackPattern> &patterns, MatchAlgorit
     }
 
     char *device = alldevs->name;
+
 
     // 获取网络设备的网络地址和掩码
     bpf_u_int32 ipaddress, ipmask;

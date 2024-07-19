@@ -6,7 +6,7 @@
 #include <string>
 
 // 定义全局变量
-int minpattern_len;
+extern int minpattern_len;
 
 // 解析算法参数
 MatchAlgorithm parseAlgorithm(const std::string &algo)

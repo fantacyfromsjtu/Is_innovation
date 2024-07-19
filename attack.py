@@ -71,7 +71,7 @@ def main():
     # 清空日志文件
     open('packet_log.txt', 'w').close()
 
-    num_requests = 100
+    num_requests = 10
     attack_probability = 0.5  # 50% 概率发送攻击请求
 
     total_requests = 0
