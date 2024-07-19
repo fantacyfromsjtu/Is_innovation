@@ -183,7 +183,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="feature_entry">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
               </object>
@@ -210,7 +210,7 @@
                 <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="add_feature_button">
                     <property name="label" translatable="yes">       添加特征       </property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -235,7 +235,7 @@
                   <placeholder/>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="detect_button">
                     <property name="label" translatable="yes">检测</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -292,7 +292,7 @@
                     <property name="can-focus">True</property>
                     <property name="shadow-type">in</property>
                     <child>
-                      <object class="GtkTextView">
+                      <object class="GtkTextView" id="alert_text_view">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                       </object>
@@ -302,36 +302,6 @@
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">与防火墙联动处理:</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkScrolledWindow">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="shadow-type">in</property>
-                    <child>
-                      <object class="GtkTextView">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
