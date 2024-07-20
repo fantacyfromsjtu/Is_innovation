@@ -5,6 +5,7 @@
 #include <pcap.h>
 #include <arpa/inet.h>
 
+int num = 0;
 // 使用 extern 声明全局变量
 int minpattern_len;
 // 全局变量来存储回调函数
@@ -46,14 +47,13 @@ void pcapCallback(u_char *user, const struct pcap_pkthdr *header, const u_char *
     memcpy(onepacket.src_ip, ip_header->sourceIP, 4);
     memcpy(onepacket.dest_ip, ip_header->destIP, 4);
 
-    std::cout << "Received packet: " << onepacket.packetcontent << std::endl;
-
-    // 只检测单个报文
     for (const auto &pattern : patterns)
     {
         if (matchPattern(pattern, onepacket.packetcontent, algorithm))
         {
+            num++;
             outputAlert(pattern, onepacket);
+            std::cout << num << " attacks detected! " << std::endl;
         }
     }
 

@@ -101,10 +101,10 @@ int main()
     // 设置随机数种子
     srand(time(nullptr));
 
-    size_t numPatterns = 1000;
-    size_t minPatternLength = 10;
-    size_t maxPatternLength = 100;
-    size_t textLen = 100000;
+    size_t numPatterns = 100000;
+    size_t minPatternLength = 20;
+    size_t maxPatternLength = 500;
+    size_t textLen = 10000;
 
     // 生成随机模式
     std::vector<std::string> patterns;
