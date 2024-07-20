@@ -129,7 +129,9 @@ void startPacketCapture(const std::vector<AttackPattern> &patterns, MatchAlgorit
 void outputAlert(const AttackPattern &pattern, const PACKETINFO &packet)
 {
     std::cout << "Attack pattern detected:" << std::endl;
+    fflush(stdout);
     std::cout << "Attack type: " << pattern.attackdes << " ";
     printf("%d.%d.%d.%d ==> ", packet.src_ip[0], packet.src_ip[1], packet.src_ip[2], packet.src_ip[3]);
     printf("%d.%d.%d.%d\n", packet.dest_ip[0], packet.dest_ip[1], packet.dest_ip[2], packet.dest_ip[3]);
+    fflush(stdout);
 }
