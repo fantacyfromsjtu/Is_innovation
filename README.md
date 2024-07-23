@@ -44,8 +44,8 @@ curl "http://example.com/search?query=file=http://example.com/shell.txt?"
 
 项目运行方法：
 ```
-cd ~/IDS/build
-rm -rf *
+mkdir build
+cd build
 cmake ..
 make
 sudo ./main ../patterns/patternfile BM   #指定攻击算法为BM（可以改成其他）
@@ -61,9 +61,10 @@ sudo ./main ../patterns/patternfile BM   #指定攻击算法为BM（可以改成
 
 ```
 
-图形化界面使用方法：
+在/gui目录下图形化界面使用方法：
 ```
 sudo apt-get install libgtk-3-dev
+cd gui
 gcc -o main_window main_window.c `pkg-config --cflags --libs gtk+-3.0`
 ./main_window
 
