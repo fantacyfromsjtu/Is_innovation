@@ -8,6 +8,7 @@ set(SOURCES
     src/main.cpp
     src/pattern_reader.cpp
     src/pcap_handler.cpp
+    src/firewall.cpp
     src/matcher.cpp
     src/algorithms/brute_force.cpp
     src/algorithms/kmp.cpp
@@ -36,6 +37,7 @@ set(TEST_SOURCES
     src/algorithms/boyer_moore.cpp
     src/matcher.cpp
     src/pcap_handler.cpp
+    src/firewall.cpp
 )
 
 # 包含测试所需的头文件目录
@@ -55,3 +57,4 @@ target_link_libraries(test_pcap_handler pcap)
 add_test(NAME AlgorithmsTest COMMAND test_algorithms)
 add_test(NAME PatternReaderTest COMMAND test_pattern_reader)
 add_test(NAME PCAPHandlerTest COMMAND test_pcap_handler)
+
