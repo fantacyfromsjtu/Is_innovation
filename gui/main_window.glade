@@ -276,7 +276,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes"> 入侵攻击警告:     </property>
+                    <property name="label" translatable="yes"> 入侵攻击警告与防火墙联动阻断:     </property>
                     <property name="justify">center</property>
                     <property name="ellipsize">middle</property>
                   </object>
