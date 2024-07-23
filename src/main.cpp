@@ -1,6 +1,7 @@
 #include "pattern_reader.h"
 #include "pcap_handler.h"
 #include "matcher.h"
+#include "firewall.h"
 #include <iostream>
 #include <vector>
 #include <string>
