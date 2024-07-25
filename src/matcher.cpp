@@ -10,13 +10,13 @@ bool matchPattern(const AttackPattern &pattern, const std::string &text, MatchAl
     switch (algorithm)
     {
     case MatchAlgorithm::BruteForce:
-        //std::cout << "call BF\n";
+        // 使用暴力匹配算法
         return bruteForceMatch(pattern.patterncontent, text);
     case MatchAlgorithm::KMP:
-        //std::cout << "call KMP\n";
+        // 使用Knuth-Morris-Pratt算法
         return kmpMatch(pattern.patterncontent, text);
     case MatchAlgorithm::BoyerMoore:
-        //std::cout << "call BM\n";
+        // 使用Boyer-Moore算法
         return boyerMooreMatch(pattern.patterncontent, text);
     default:
         return false;

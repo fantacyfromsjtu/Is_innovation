@@ -7,9 +7,9 @@
 // 攻击模式结构体
 struct AttackPattern
 {
-    std::string attackdes;
-    std::string patterncontent;
-    int patternlen;
+    std::string attackdes;      // 攻击描述
+    std::string patterncontent; // 模式内容
+    int patternlen;             // 模式长度
 };
 
 // 读取攻击模式文件
