@@ -10,10 +10,9 @@ IDS/
 │   ├── pcap_handler.h
 │   ├── matcher.cpp
 │   ├── matcher.h
-│   ├── packet_reassembly.cpp
-│   ├── packet_reassembly.h
 │   ├── firewall.cpp
 │   ├── firewall.h
+│   ├── anti_escape_detect.cpp
 │   ├── packet_structures.h
 │   ├── algorithms/
 │       ├── brute_force.cpp
@@ -25,15 +24,14 @@ IDS/
 ├── gui/
 │   ├── main_window.c
 │   ├── main_window.glade
+│   ├── main_window
 ├── tests/
 │   ├── test_algorithms.cpp
-│   ├── test_matcher.cpp
 │   ├── test_pattern_reader.cpp
 │   ├── test_pcap_handler.cpp
 │   ├── attack.py
 │   ├── send.py
 ├── database/
-│   ├── load.cpp
 │   ├── read_db.cpp
 │   ├── patternfile2sql.py
 ├── patterns/
@@ -51,10 +49,21 @@ IDS/
 #### `src/`：源代码目录
 
 - **`main.cpp`**：主程序文件，负责初始化程序、配置解析、调用数据包处理模块和启动入侵检测流程。
+
+- **`packet_structures.h`**：定义用于描述IP头部和数据包信息的数据结构。
+
 - **`pattern_reader.cpp` 和 `pattern_reader.h`**：这两个文件定义了攻击模式读取模块，负责从文件中读取和解析攻击模式，提供接口给其他模块查询和获取这些模式。
+
 - **`pcap_handler.cpp` 和 `pcap_handler.h`**：数据包捕获和处理模块，使用libpcap库捕获网络流量，解析数据包内容，并将数据包传递给匹配模块。
+
 - **`matcher.cpp` 和 `matcher.h`**：匹配算法调度模块，负责选择和调用不同的字符串匹配算法来检测攻击模式是否出现在网络流量中。
-- 
+
+- **`firewall.cpp`和`firewall.h`**：提供防火墙控制接口，用于切断与某个ip的通信及控制规则管理。
+
+- **`anti_escape_detect.cpp`**：提供一种抗逃避检测方式，通过模糊匹配的方式起到一定的抗逃避作用。
+
+  
+
 - **`algorithms/`**：包含所有字符串匹配算法的实现。
   - **`brute_force.cpp` 和 `brute_force.h`**：暴力匹配算法的实现。
   - **`kmp.cpp` 和 `kmp.h`**：KMP (Knuth-Morris-Pratt) 算法的实现，用于更高效的字符串匹配。
@@ -81,8 +90,12 @@ IDS/
 
 - **`test_pattern_reader.cpp`**：针对模式读取模块的单元测试。
 - **`test_pcap_handler.cpp`**：针对数据包处理模块的单元测试。
-- **`test_matcher.cpp`**：针对匹配调度模块的单元测试。
 - **`test_algorithms.cpp`**：针对包含在`algorithms/`目录下的各种字符串匹配算法的单元测试。
+
+#### `database/`
+
+- **`read_db.cpp`**：从sql特征库中读取特征。
+- **`patternfile2sql.py`**：读取patternfile并将其转换为sql库。
 
 #### `CMakeLists.txt`
 
